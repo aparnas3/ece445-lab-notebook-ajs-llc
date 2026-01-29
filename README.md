@@ -14,5 +14,3 @@
 ---
 ## 📂 Directory Map
 * `/Member_Name`: Daily logs and experimental data.
-* `/Protocols`: Standard Operating Procedures (SOPs) used by everyone.
-* `/Media`: Photos of physical results, gels, or sketches.
