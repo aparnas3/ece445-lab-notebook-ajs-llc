@@ -1,6 +1,6 @@
 # Aparna Worklog
 
-[[_TOC_]]
+My personal lab notebook contain contents of each meeting and ideas that are formed
 
 # 2026-01-28 - Group Meeting about ideas
 
@@ -11,3 +11,4 @@ Key Elements: Elastic bands that correct posture, is not a crutch but a reminder
 the back muscles), pressure sensors that detect slouching vs. not slouching. 
 Rough Sketch: 
 <img width="1077" height="506" alt="image" src="https://github.com/user-attachments/assets/a73f591a-1e15-49a7-bd77-36050f4e8f9d" />
+
