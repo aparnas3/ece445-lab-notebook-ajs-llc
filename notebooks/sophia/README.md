@@ -96,6 +96,15 @@ error = S_target − S_now (or the opposite depending on sensor direction)
 ![IMG_1678](https://github.com/user-attachments/assets/38638719-575c-4795-894f-8f172de8d14d)
 
 
+# 2026-02-10 - Starting Proposal and meeting with TA
+
+We met with our TA today and he gave us some feedback on our idea as well as our block diagram. Today I will be working on the visual aid for the project. Here is a picture of our tentative block diagram. Our goals for today is to finish bullet points 1 and 3 of our proposal.
+
+**Tentative block diagram**
+
+![1000000875](https://github.com/user-attachments/assets/0bed5b8a-3fd3-41d2-b9f9-e7bb7fcce6c0)
+
+
 
 
 
