@@ -19,5 +19,22 @@
 * Rough sketch:
 <img width="814" height="367" alt="image" src="https://github.com/user-attachments/assets/9680d46f-c0f9-44ef-b0bb-05318bcf1bc3" />
 
+
+**Date:** 2/10/2026
+
+**Meeting Objectives:**
+1. Start drafting our project proposal more formally (focusing on intro and ethics portions)
+2. Go over TA notes and apply to our proposal (I specifically need to edit the high-level requirements) 
+
+**Record:**
+* TA Meeting:
+    - Created meeting schedule: Mondays @ 10am in lab
+    - Locker and code: A7 (27-15-01)
+    - Feedback on my section (high-level requirements): quantify it all; for #1, should be saying how long it will take to reach upright position and how long until the tension is released after posture is corrected.
  
+* Team meeting
+    - Finished up high-level requirements and first draft of problem/solution
+    - created a rough draft diagram
+![apcv_diagram](https://github.com/user-attachments/assets/c71aadd4-90c3-4ecc-860f-c7440dbd53e4)
+
 
