@@ -4,7 +4,6 @@
 * **Traceability:** Every entry must be contained in the member's specific folder.
 * **Integrity:** Do not delete history. Mistakes must be marked with `~~strikethrough~~`.
 * **Validation:** All entries must be committed and pushed by the end of the work day.
-* **Signatures:** A commit serves as a digital signature. For high-stakes work, use GPG-signed commits.
 
 ## 👥 Members
 * **Aparna Srinivasan** - @aparnas3
