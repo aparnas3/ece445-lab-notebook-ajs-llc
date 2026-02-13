@@ -116,6 +116,16 @@ We met with our TA today and he gave us some feedback on our idea as well as our
 | **Approx. Price** | **$18.00** | $21.00 – $28.00 | $27.50 – $45.00 | Waveshare | Most budget-friendly option. |
 
 
+STRETCH SENSORS: 
+https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gbraid=0AAAAADx9JvRWYU5tJsMEXvWKXJLSAmWvC&gclid=CjwKCAiAtLvMBhB_EiwA1u6_Pnn6ahT9QPF7mxnxF1kEBRIVxbh8-vFY-_DceWhQ5l1bP-qh_47wfBoCBFIQAvD_BwE
 
+Conductive rubber cords behave like a variable resistor: when you stretch them, their resistance increases (usually nonlinearly) because the conductive pathways inside the material get pulled apart.
 
+So you can treat it like:
 
+Shorter / less stretched → lower 𝑅
+More stretched → higher 𝑅
+
+Then you convert that changing resistance into a voltage our ESP32 can read.
+
+We will use a conductive rubber stretch cord as a resistive stretch sensor. The cord’s resistance increases with strap extension. We read this using a 3.3V voltage divider into the ESP32 ADC (with an RC low-pass filter), and detect slouch by thresholding the calibrated upright baseline.
