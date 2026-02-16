@@ -38,3 +38,29 @@
 ![apcv_diagram](https://github.com/user-attachments/assets/c71aadd4-90c3-4ecc-860f-c7440dbd53e4)
 
 
+**Date:** 2/13/2026
+
+**Meeting Objectives:**
+* Finish up Proposal and get technical details down
+
+**Record:**
+* Physical:
+    - Pull straps diagonally from each shoulder and tighten around waist for posture correction
+* Mechanical:
+    - Dynamixel XL430-W250-T motor seems to be the safest option for a wearable device but very expenseve (~$27)
+    - Cheaper option (~$20) and stronger: FeeTech 7.4V 19kg serial bus servo w/ current feedback **going with this option**
+      
+| Feature | Waveshare SC15 | FeeTech STS3215 | DYNAMIXEL XL430-W250-T | Recommendation | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Max Stall Torque** | 17 kg·cm (8.4V) | 30 kg·cm (12V) | 15.3 kg·cm (12V) | FeeTech | FeeTech has the highest raw power. |
+| **8kg Load Suitability** | Risky (Near 100% capacity) | Safe (26% capacity) | Capable (Near 50% capacity) | FeeTech | FeeTech is highly durable for this specific load. |
+| **Best Feedback Metrics** | Position, Load, Speed, Voltage | Current, Load, Position, Speed, Temp | Position, Velocity, PWM, Temp. | FeeTech | Provides current and temperature monitoring. |
+| **Rotation Mechanism** | 180° Servo / 360° Motor | 360° Magnetic Encoder | 360° Contactless Encoder | DYNAMIXEL | Uses the most advanced encoder type. |
+| **Gear Material** | High-precision Metal | Steel | Engineering Plastic | FeeTech/Waveshare | Metal/Steel gears generally offer better durability. |
+| **Approx. Price** | **$18.00** | $21.00 – $28.00 | $27.50 – $45.00 | Waveshare | Most budget-friendly option. |
+
+* ECE:
+    - ESP32 microcontroller has bluetooth capabilities which would be good for what we wanna do
+
+
+
