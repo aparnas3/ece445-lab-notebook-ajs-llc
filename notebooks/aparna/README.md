@@ -43,8 +43,45 @@ Link to project proposal document: https://uillinoisedu-my.sharepoint.com/:w:/g/
 - Ethics section first draft
 - Introduction first draft 
 
+# 2026-02-13 - Proposal Document Final Draft Meeting
 
+**Objectives**
+- Complete the block diagram
+- Select motors, microcontrollers, and sensors
+- Complete the rest of section two in proposal
+- Review sections one and three of the proposal
 
+Below is a table I created to determine which motors to go with for our project.  
+
+| Feature | Waveshare SC15 | FeeTech STS3215 | DYNAMIXEL XL430-W250-T | Recommendation | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Max Stall Torque** | 17 kg·cm (8.4V) | 30 kg·cm (12V) | 15.3 kg·cm (12V) | FeeTech | FeeTech has the highest raw power. |
+| **8kg Load Suitability** | Risky (Near 100% capacity) | Safe (26% capacity) | Capable (Near 50% capacity) | FeeTech | FeeTech is highly durable for this specific load. |
+| **Best Feedback Metrics** | Position, Load, Speed, Voltage | Current, Load, Position, Speed, Temp | Position, Velocity, PWM, Temp. | FeeTech | Provides current and temperature monitoring. |
+| **Rotation Mechanism** | 180° Servo / 360° Motor | 360° Magnetic Encoder | 360° Contactless Encoder | DYNAMIXEL | Uses the most advanced encoder type. |
+| **Gear Material** | High-precision Metal | Steel | Engineering Plastic | FeeTech/Waveshare | Metal/Steel gears generally offer better durability. |
+| **Approx. Price** | $18.00 | $21.00 – $28.00 | $27.50 – $45.00 | Waveshare | Most budget-friendly option. |
+
+We decided to go with the FeeTech STS3215 motors as they were the most affordable, posseses ample power, and are very safe.   
+
+STRETCH SENSORS: 
+https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gbraid=0AAAAADx9JvRWYU5tJsMEXvWKXJLSAmWvC&gclid=CjwKCAiAtLvMBhB_EiwA1u6_Pnn6ahT9QPF7mxnxF1kEBRIVxbh8-vFY-_DceWhQ5l1bP-qh_47wfBoCBFIQAvD_BwE
+
+**Tasks completed**
+- Completed the block diagram
+- Selected motors, microcontrollers, and sensors
+- Completed the rest of section two in proposal
+- Reviewed sections one and three of the proposal
+- Submitted the proposal document
+
+# 2026-02-17 - PCB schematic initial meeting
+
+**Objectives**
+- Complete the team contract
+- Go through supply catalog to determine what we can use
+- Message Frey about the parts we want to order asap (motors, stretch sensors, microcontroller)
+- Watch videos on good PCB design layout
+- Determine what components we need to add to our PCB 
 
 
 
