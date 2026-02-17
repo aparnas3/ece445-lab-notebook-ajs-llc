@@ -129,3 +129,17 @@ More stretched → higher 𝑅
 Then you convert that changing resistance into a voltage our ESP32 can read.
 
 We will use a conductive rubber stretch cord as a resistive stretch sensor. The cord’s resistance increases with strap extension. We read this using a 3.3V voltage divider into the ESP32 ADC (with an RC low-pass filter), and detect slouch by thresholding the calibrated upright baseline.
+
+# 2026-02-17 - Meeting Goals
+-Finish Team Contract
+
+-Send parts we want ordered to Frey
+
+-Research good PCB design practices
+
+-Start our design in KiCad (aka figure out what parts we want on our PCB)
+
+
+
+
+
