@@ -63,4 +63,17 @@
     - ESP32 microcontroller has bluetooth capabilities which would be good for what we wanna do
 
 
+**Date:** 2/17/2026
 
+**Meeting Objectives:**
+* Finish Team Contract
+* Send parts we want ordered to Frey
+* Research good PCB design practices
+* Start our design in KiCad (aka figure out what parts we want on our PCB)
+
+**Record:**
+* Research Findings on good PCB layout (with RF):
+    - For RF pcb designs we need to consider signal integrity (proper trace design), impedance matching (target for RF traces is ~50 ohms), EMI and noise (sensitive to interference from nearby components/external sources), and material selection (moght need specialized substrates- Rogers/Teflon)
+      
+* Websites to refer back to:
+    - https://www.allpcb.com/allelectrohub/beginners-guide-to-rf-pcb-design-from-theory-to-practice 
