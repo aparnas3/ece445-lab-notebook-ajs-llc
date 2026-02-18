@@ -53,7 +53,7 @@ Link to project proposal document: https://uillinoisedu-my.sharepoint.com/:w:/g/
 
 Below is a table I created to determine which motors to go with for our project.  
 
-| Feature | Waveshare SC15 | FeeTech STS3215 | DYNAMIXEL XL430-W250-T | Recommendation | Notes |
+| Feature | [Waveshare SC15](https://www.waveshare.com/sc15-servo.htm) | [FeeTech STS3215](https://www.amazon.com/RCmall-Continuous-Rotation-SO-ARM100-Programming/dp/B0F87Z9M3P?th=1) | [DYNAMIXEL XL430-W250-T](https://robotis.us/dynamixel-xl430-w250-t/) | Recommendation | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Max Stall Torque** | 17 kg·cm (8.4V) | 30 kg·cm (12V) | 15.3 kg·cm (12V) | FeeTech | FeeTech has the highest raw power. |
 | **8kg Load Suitability** | Risky (Near 100% capacity) | Safe (26% capacity) | Capable (Near 50% capacity) | FeeTech | FeeTech is highly durable for this specific load. |
@@ -83,6 +83,17 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 - Watch videos on good PCB design layout
 - Determine what components we need to add to our PCB 
 
+**Tasks Completed**
+- Completed the team contract
+- Went through the [supply catalog](https://docs.google.com/spreadsheets/d/1InSHH3_mebTMyk4SWF0S2R67ZWSWq7FpKZRyKWeDHm0/edit?gid=1780582164#gid=1780582164) and determined we can use:
+- LM3940IT-3.3V Regulator
+- 10 uF and 0.1 uF capacitors 
+- 6mm tactile switches
+- 10kOhm resistors
+- MTA-100 Headers (6-pin)
+- 22 AWG Stranded Wire
+- Messaged our TA about which microcontroller to use
+- In progress: watch videos on PCB design, determining what components we need to add to our PCB, message TA about parts we need to order 
 
 
 
