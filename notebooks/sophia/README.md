@@ -140,6 +140,21 @@ We will use a conductive rubber stretch cord as a resistive stretch sensor. The 
 -Start our design in KiCad (aka figure out what parts we want on our PCB)
 
 
+KiCad Schematic Notes:
+
+Actuation & Power:
+-- 2S 18650 battery pack (7.4V) as main source rail (label it VBAT_7V4)
+-- split into two branches
+    Motor rail: VBAT_7V4 → E-STOP → VMOTOR_7V4 (proposal says the kill switch is on the motor power path)
+    Logic rail: VBAT_7V4 → Voltage Regulator → +3V3 (proposal says regulator makes stable 3.3V for ESP32 + sensors)
+
+
+Control:
+-- Power: +3V3 and GND to the ESP32
+-- ADC inputs: at least one pin labeled like STRETCH1_ADC (proposal: ESP32 reads stretch sensor voltages through ADC)
+
+
+
 
 
 
