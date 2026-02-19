@@ -72,8 +72,40 @@
 * Start our design in KiCad (aka figure out what parts we want on our PCB)
 
 **Record:**
-* Research Findings on good PCB layout (with RF):
+* Research Findings on good PCB layout (with RF)- theory:
     - For RF pcb designs we need to consider signal integrity (proper trace design), impedance matching (target for RF traces is ~50 ohms), EMI and noise (sensitive to interference from nearby components/external sources), and material selection (moght need specialized substrates- Rogers/Teflon)
+    - RF signals are like waves -> can radiate energy and interfere w other signals
+    - IMPEDANCE MATCHING: must match impedance of source, transmission line, and load (common is 50 ohms)
+    - wider traces are NOT better for RF signals -> calculate this based on operating frequency
+
+* Applicable PCB design tips:
+    - MATERIAL: Rogers 4350 B or PTFE-based laminates are preferred (low loss and stable performance at frequencies > 4350B)
+    - LAYERING (4-layer ex from source): Top Layer: RF traces and components; Layer 2: Ground plane for shielding; Layer 3: Power plane; Bottom Layer: Additional routing or ground
+    - TRACE WIDTH: calculate to match impedance (often 50 ohms for RF lines)
+    - TRACE LENGTH: keep short to avoid signal delay
+    - CORNERS: avoid sharp corners for traces->use 45-degree bends or curved traces
+    - GROUND PLANE: avoid splitting ground plane under RF traces
       
 * Websites to refer back to:
-    - https://www.allpcb.com/allelectrohub/beginners-guide-to-rf-pcb-design-from-theory-to-practice 
+    - https://www.allpcb.com/allelectrohub/beginners-guide-to-rf-pcb-design-from-theory-to-practice
+ 
+**Date:** 2/18/2026
+
+**Meeting Objectives:**
+* Start our design in KiCad (aka figure out what parts we want on our PCB)
+* Lay out parts in KiCad for schematic; connections tomorrow
+
+**Record:**
+* Machine shop parts:
+  - LM3940IT-3.3V Regulator
+  - 10 uF and 0.1 uF capacitors
+  - 6mm tactile switches
+  - 10kOhm resistors
+  - MTA-100 Headers (6-pin)
+  - 22 AWG Stranded Wire
+
+* Parts for TA to order:
+  - ESP32 Microcontroller
+  - Adafruit (PID:519) stretch sensors
+  - FeeTech STS3215 Servo Motors
+  - 7.4V Battery
