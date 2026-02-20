@@ -92,7 +92,6 @@
 **Date:** 2/18/2026
 
 **Meeting Objectives:**
-* Start our design in KiCad (aka figure out what parts we want on our PCB)
 * Lay out parts in KiCad for schematic; connections tomorrow
 
 **Record:**
@@ -103,9 +102,21 @@
   - 10kOhm resistors
   - MTA-100 Headers (6-pin)
   - 22 AWG Stranded Wire
+  - AZ1117 Voltage regulator   
 
 * Parts for TA to order:
   - ESP32 Microcontroller
   - Adafruit (PID:519) stretch sensors
   - FeeTech STS3215 Servo Motors
   - 7.4V Battery
+
+ 
+**Date:** 2/19/2026
+
+**Meeting Objectives:**
+* Lay out parts in KiCad and connections tomorrow
+
+**Record:**
+* Servo documentation (more detailed): file:///C:/Users/jordy/Downloads/Communication_Protocol_Manual.pdf
+* voltage regulator: AZ1117
+
