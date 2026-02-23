@@ -120,3 +120,19 @@
 * Servo documentation (more detailed): file:///C:/Users/jordy/Downloads/Communication_Protocol_Manual.pdf
 * voltage regulator: AZ1117
 
+**Date:** 2/23/2026
+
+**Meeting Objectives:**
+* TA meeting
+
+**Record:**
+*proposal edits:
+  - edit high level requirements (1st and 2nd are too similar)
+  - define problem more clearly
+  - force units measurement are not correct- should have newtons in the measurement?
+  - Q: edit proposal and re turn in or just fix for design doc? fix for design doc
+
+* other notes
+  - checked out ESP32 dev board for breadboard testing
+
+
