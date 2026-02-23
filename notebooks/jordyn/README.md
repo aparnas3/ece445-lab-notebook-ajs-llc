@@ -126,7 +126,7 @@
 * TA meeting
 
 **Record:**
-*proposal edits:
+* proposal edits:
   - edit high level requirements (1st and 2nd are too similar)
   - define problem more clearly
   - force units measurement are not correct- should have newtons in the measurement?
@@ -134,5 +134,6 @@
 
 * other notes
   - checked out ESP32 dev board for breadboard testing
+
 
 
