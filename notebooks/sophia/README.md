@@ -154,7 +154,13 @@ Control:
 -- ADC inputs: at least one pin labeled like STRETCH1_ADC (proposal: ESP32 reads stretch sensor voltages through ADC)
 
 
+# 2026-02-26 - TA Meeting Suggestions
 
-
+- Fix high-level requirements
+- Fix tolerance analysis units
+- Create test points
+- Define how much of a slouch it can detect (percentage difference from ideal)
+- Add Schematic for each subsytem (DESIGN DOC)
+- How to convert ADC reading to tension reading
 
 
