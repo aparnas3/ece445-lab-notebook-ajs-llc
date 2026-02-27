@@ -96,4 +96,12 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 - In progress: watch videos on PCB design, determining what components we need to add to our PCB, message TA about parts we need to order 
 
 
+# 2026-02-23 - Weekly TA meeting 
+
+We discussed our proposal document and our PCB schematic, and got feedback on both. It was recommmended to us that we use a breadboard to verify that our schematic works the way we intend.  
+Here are a list of things he suggested for our proposal:
+- edit high level requirements (1st and 2nd are too similar)
+- define problem more clearly
+- force units measurement are not correct- should have newtons in the measurement?
+We also checked out the ESP32 dev board for testing on breadboard which will start completing in the next week or so.
 
