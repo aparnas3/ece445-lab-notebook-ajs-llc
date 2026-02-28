@@ -123,3 +123,15 @@ Here are a list of things he suggested for our proposal:
 We also checked out the ESP32 dev board for testing on breadboard which will start completing in the next week or so.
 
 
+# 2026-02-27-26 - Group Meeting
+
+**Objectives** 
+- Figure out the BMS system
+- Determine the power source setup for the board 
+
+We ended up going for a [2S 8.4V 10A Li-ion ProtectionBoard](https://www.amazon.com/DIANN-Lithium-Battery-Protection-Charger/dp/B0B4D1G1C3/ref=sr_1_2?crid=3IDU2IEVLGE12&dib=eyJ2IjoiMSJ9.vIvJOG6s6fU0pED-B0Gb9ilnIEVpHjR8ggJ7bS9Xhrn_B_2jarhckzdXFndGE92pR14QZlZh1-kLFSKyjkPExfsbpGccvB7ptV9RoTT8G29W2VV1PM-8bkaPPtWw_XVVxO5EazdDAELoBNHtOO-8NYGj4ufNsosvufM0dsykEyO1lPLSR5lsfzSpOh7x5IwBD4QyhnEF3NahVCL5tsv-X5KVVwakcpwVx9ML7ASOvy8Wp9TZAs3xcFt9Nipdt_dtp-DlTVzFshNsbKRIdAEXkn8hLLD1HFpp-lZ_cPaxxdY.IyZQgrkeEtcrUBmktGxDxGBcEyfEBZNlH3P5gr48ZB0&dib_tag=se&keywords=2S+8.4V+10A+Li-ion+Protection+Board&qid=1772248326&s=electronics&sprefix=2s+8.4v+10a+li-ion+protection+board%2Celectronics%2C200&sr=1-2) due to the fact that using an external BMS will be more reliable and safe when using on an actual human user. We could attach our own BMS unit, however we don't want soldering or another issue to pose more of a risk to the user.
+
+**Tasks Completed**
+- Ordered the BMS chip that we need for our project (my own personal objective)
+
+
