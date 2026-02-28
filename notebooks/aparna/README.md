@@ -128,10 +128,37 @@ We also checked out the ESP32 dev board for testing on breadboard which will sta
 **Objectives** 
 - Figure out the BMS system
 - Determine the power source setup for the board 
+- Finish Design document (schematics and block diagram)
+
+
+We decided to split up the design document in these main sections, in which I did the majority of the electrical diagrams and the block diagram, as well as the ethics section
+This is a figure that my team member jordyn made:
+![alt text](image-3.png)
+<br>
+<br>
+<br>
+<br>
+This is the block diagram I ended up creating for the design document as well:
+
+![alt text](image.png)
+
+<br>
+<br>
+<br>
+<br>
+And these are the schematics I created in KiCad for each of our subsystems for the beginning of our PCB design as well as the design document.
+<br>
+<br>
+
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
 
 We ended up going for a [2S 8.4V 10A Li-ion ProtectionBoard](https://www.amazon.com/DIANN-Lithium-Battery-Protection-Charger/dp/B0B4D1G1C3/ref=sr_1_2?crid=3IDU2IEVLGE12&dib=eyJ2IjoiMSJ9.vIvJOG6s6fU0pED-B0Gb9ilnIEVpHjR8ggJ7bS9Xhrn_B_2jarhckzdXFndGE92pR14QZlZh1-kLFSKyjkPExfsbpGccvB7ptV9RoTT8G29W2VV1PM-8bkaPPtWw_XVVxO5EazdDAELoBNHtOO-8NYGj4ufNsosvufM0dsykEyO1lPLSR5lsfzSpOh7x5IwBD4QyhnEF3NahVCL5tsv-X5KVVwakcpwVx9ML7ASOvy8Wp9TZAs3xcFt9Nipdt_dtp-DlTVzFshNsbKRIdAEXkn8hLLD1HFpp-lZ_cPaxxdY.IyZQgrkeEtcrUBmktGxDxGBcEyfEBZNlH3P5gr48ZB0&dib_tag=se&keywords=2S+8.4V+10A+Li-ion+Protection+Board&qid=1772248326&s=electronics&sprefix=2s+8.4v+10a+li-ion+protection+board%2Celectronics%2C200&sr=1-2) due to the fact that using an external BMS will be more reliable and safe when using on an actual human user. We could attach our own BMS unit, however we don't want soldering or another issue to pose more of a risk to the user.
 
 **Tasks Completed**
 - Ordered the BMS chip that we need for our project (my own personal objective)
-
-
+- Submitted the design document
+- Completed the block diagrams and schematics 
+- Completed the ethics section of the paper 
