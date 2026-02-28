@@ -95,6 +95,23 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 - Messaged our TA about which microcontroller to use
 - In progress: watch videos on PCB design, determining what components we need to add to our PCB, message TA about parts we need to order 
 
+# 2026-02-20 - Rough Draft of PCB Board Design and Schematic
+
+**Objectives**
+- Finish the PCB schematic
+- Finish the PCB board layout
+
+<div align="center">
+PCB Schematic 1st Rough Draft
+</div>
+
+
+  
+<img width="1360" height="672" alt="image" src="https://github.com/user-attachments/assets/a26c5f87-2f2b-47dc-8ee2-d340d6e00172" />
+
+
+**Tasks Completed**
+- Finished the rough draft of the PCB schematic 
 
 # 2026-02-23 - Weekly TA meeting 
 
@@ -104,4 +121,5 @@ Here are a list of things he suggested for our proposal:
 - define problem more clearly
 - force units measurement are not correct- should have newtons in the measurement?
 We also checked out the ESP32 dev board for testing on breadboard which will start completing in the next week or so.
+
 
