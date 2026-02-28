@@ -133,14 +133,15 @@ We also checked out the ESP32 dev board for testing on breadboard which will sta
 
 We decided to split up the design document in these main sections, in which I did the majority of the electrical diagrams and the block diagram, as well as the ethics section
 This is a figure that my team member jordyn made:
-![alt text](image-3.png)
+<img width="788" height="899" alt="image" src="https://github.com/user-attachments/assets/de6c2203-dcf2-40fa-930e-981d7162ab09" />
 <br>
 <br>
 <br>
 <br>
 This is the block diagram I ended up creating for the design document as well:
 
-![alt text](image.png)
+<img width="1022" height="925" alt="image" src="https://github.com/user-attachments/assets/9a2b9de6-d480-4f5b-89c4-376860824334" />
+
 
 <br>
 <br>
@@ -150,10 +151,11 @@ And these are the schematics I created in KiCad for each of our subsystems for t
 <br>
 <br>
 
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
+<img width="975" height="424" alt="image" src="https://github.com/user-attachments/assets/794dd90e-957c-4b86-94a2-167c3a36f796" />
+<img width="975" height="433" alt="image" src="https://github.com/user-attachments/assets/e97a1db9-8a00-4acf-8d8a-55c7b6221cad" />
+<img width="975" height="526" alt="image" src="https://github.com/user-attachments/assets/fa030aa8-13e3-4995-b820-184ae161c8ad" />
+<img width="975" height="423" alt="image" src="https://github.com/user-attachments/assets/78d9047a-037f-42d2-8e66-7476084ff076" />
+
 
 We ended up going for a [2S 8.4V 10A Li-ion ProtectionBoard](https://www.amazon.com/DIANN-Lithium-Battery-Protection-Charger/dp/B0B4D1G1C3/ref=sr_1_2?crid=3IDU2IEVLGE12&dib=eyJ2IjoiMSJ9.vIvJOG6s6fU0pED-B0Gb9ilnIEVpHjR8ggJ7bS9Xhrn_B_2jarhckzdXFndGE92pR14QZlZh1-kLFSKyjkPExfsbpGccvB7ptV9RoTT8G29W2VV1PM-8bkaPPtWw_XVVxO5EazdDAELoBNHtOO-8NYGj4ufNsosvufM0dsykEyO1lPLSR5lsfzSpOh7x5IwBD4QyhnEF3NahVCL5tsv-X5KVVwakcpwVx9ML7ASOvy8Wp9TZAs3xcFt9Nipdt_dtp-DlTVzFshNsbKRIdAEXkn8hLLD1HFpp-lZ_cPaxxdY.IyZQgrkeEtcrUBmktGxDxGBcEyfEBZNlH3P5gr48ZB0&dib_tag=se&keywords=2S+8.4V+10A+Li-ion+Protection+Board&qid=1772248326&s=electronics&sprefix=2s+8.4v+10a+li-ion+protection+board%2Celectronics%2C200&sr=1-2) due to the fact that using an external BMS will be more reliable and safe when using on an actual human user. We could attach our own BMS unit, however we don't want soldering or another issue to pose more of a risk to the user.
 
