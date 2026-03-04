@@ -135,5 +135,17 @@
 * other notes
   - checked out ESP32 dev board for breadboard testing
 
+**Date:** 3/4/2026
+
+**Meeting Objectives:**
+* Design Review w TA and Professor
+
+**Record:**
+* Suggestions:
+    - instead of Voltage Divider, do a voltage amplifier circuit for readings from stretch sensors
+    - have a backup plan for the stretch sensors if they dont work: maybe pressure?
+    - Make the status LED into something to signify that the vest is actually working- have it blink when theres bad posture and be lit up when there is good posture to be able to demo to professors
+    - test the stretch sensors first
+
 
 
