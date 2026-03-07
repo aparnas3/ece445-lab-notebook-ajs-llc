@@ -16,6 +16,7 @@ Rough Sketch:
 
 # 2026-02-10 - Proposal Document Draft Meeting + First TA Meeting
 **Objectives:**
+-
 - Complete first TA meeting: ask for feedback on high-level requirements and block diagram, schedule weekly recurring meetings, and set up form of communication
 - Complete first draft of the ethics, safety, and societal impact portion of proposal
 - Complete portions of the introduction including high-level requirements and visual aid
@@ -39,6 +40,7 @@ Link to project proposal document: https://uillinoisedu-my.sharepoint.com/:w:/g/
 - Feedback on block diagram: Make a lot more specific, include things like UART vs. SPI, also include how each subsystem interfaces with one another
 
 **Tasks completed**
+-
 - TA meeting: meetings scheduled, feedback received
 - Ethics section first draft
 - Introduction first draft 
@@ -46,6 +48,7 @@ Link to project proposal document: https://uillinoisedu-my.sharepoint.com/:w:/g/
 # 2026-02-13 - Proposal Document Final Draft Meeting
 
 **Objectives**
+-
 - Complete the block diagram
 - Select motors, microcontrollers, and sensors
 - Complete the rest of section two in proposal
@@ -68,6 +71,7 @@ STRETCH SENSORS:
 https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gbraid=0AAAAADx9JvRWYU5tJsMEXvWKXJLSAmWvC&gclid=CjwKCAiAtLvMBhB_EiwA1u6_Pnn6ahT9QPF7mxnxF1kEBRIVxbh8-vFY-_DceWhQ5l1bP-qh_47wfBoCBFIQAvD_BwE
 
 **Tasks completed**
+-
 - Completed the block diagram
 - Selected motors, microcontrollers, and sensors
 - Completed the rest of section two in proposal
@@ -77,6 +81,7 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 # 2026-02-17 - PCB schematic initial meeting
 
 **Objectives**
+-
 - Complete the team contract
 - Go through supply catalog to determine what we can use
 - Message Frey about the parts we want to order asap (motors, stretch sensors, microcontroller)
@@ -84,6 +89,7 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 - Determine what components we need to add to our PCB 
 
 **Tasks Completed**
+-
 - Completed the team contract
 - Went through the [supply catalog](https://docs.google.com/spreadsheets/d/1InSHH3_mebTMyk4SWF0S2R67ZWSWq7FpKZRyKWeDHm0/edit?gid=1780582164#gid=1780582164) and determined we can use:
 - LM3940IT-3.3V Regulator
@@ -98,6 +104,7 @@ https://www.adafruit.com/product/6379?gad_source=1&gad_campaignid=21079227318&gb
 # 2026-02-20 - Rough Draft of PCB Board Design and Schematic
 
 **Objectives**
+-
 - Finish the PCB schematic
 - Finish the PCB board layout
 
@@ -111,6 +118,7 @@ PCB Schematic 1st Rough Draft
 
 
 **Tasks Completed**
+-
 - Finished the rough draft of the PCB schematic 
 
 # 2026-02-23 - Weekly TA meeting 
@@ -126,6 +134,7 @@ We also checked out the ESP32 dev board for testing on breadboard which will sta
 # 2026-02-27-26 - Group Meeting
 
 **Objectives** 
+-
 - Figure out the BMS system
 - Determine the power source setup for the board 
 - Finish Design document (schematics and block diagram)
@@ -160,7 +169,39 @@ And these are the schematics I created in KiCad for each of our subsystems for t
 We ended up going for a [2S 8.4V 10A Li-ion ProtectionBoard](https://www.amazon.com/DIANN-Lithium-Battery-Protection-Charger/dp/B0B4D1G1C3/ref=sr_1_2?crid=3IDU2IEVLGE12&dib=eyJ2IjoiMSJ9.vIvJOG6s6fU0pED-B0Gb9ilnIEVpHjR8ggJ7bS9Xhrn_B_2jarhckzdXFndGE92pR14QZlZh1-kLFSKyjkPExfsbpGccvB7ptV9RoTT8G29W2VV1PM-8bkaPPtWw_XVVxO5EazdDAELoBNHtOO-8NYGj4ufNsosvufM0dsykEyO1lPLSR5lsfzSpOh7x5IwBD4QyhnEF3NahVCL5tsv-X5KVVwakcpwVx9ML7ASOvy8Wp9TZAs3xcFt9Nipdt_dtp-DlTVzFshNsbKRIdAEXkn8hLLD1HFpp-lZ_cPaxxdY.IyZQgrkeEtcrUBmktGxDxGBcEyfEBZNlH3P5gr48ZB0&dib_tag=se&keywords=2S+8.4V+10A+Li-ion+Protection+Board&qid=1772248326&s=electronics&sprefix=2s+8.4v+10a+li-ion+protection+board%2Celectronics%2C200&sr=1-2) due to the fact that using an external BMS will be more reliable and safe when using on an actual human user. We could attach our own BMS unit, however we don't want soldering or another issue to pose more of a risk to the user.
 
 **Tasks Completed**
+-
 - Ordered the BMS chip that we need for our project (my own personal objective)
 - Submitted the design document
 - Completed the block diagrams and schematics 
 - Completed the ethics section of the paper 
+
+# 2026-03-06-26 - Group Meeting
+
+**Objectives** 
+-
+- Revise the voltage regulation system 
+- Figure out how to wire up the the stretch sensors on breadboard for pcb
+- Revise half-duplex conversion system
+
+
+This is the first draft of the schematic I came up with for our PCB, however we realize now that the 74LS176 or anything from the 74HC series will not work for our servo motors because of data direction issues and voltage issues, these chips are not compatible with our power system. 
+<br>
+<br>
+<img width="1137" height="550" alt="image" src="https://github.com/user-attachments/assets/f8f0998f-980e-42b8-92dd-04035c5d987d" />
+<br>
+<br>
+<br>
+<br>
+After discussing with a TA in lab and consulting an electrical engineering friend, we determined a buck regulator is better suited for our needs since the voltage sags less with a regulator. We ended up selecting this [buck regulator](https://www.digikey.com/en/products/detail/texas-instruments/TPS62162DSGR/2833447) 
+
+<br>
+In terms of our breadboard setup, I did some research into how we should wire up the conducitve rubber cord to read the sensor readings from the arduino IDE, and I came across this link [measuring stretch forces](https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e)
+
+<br>
+Then in terms of the half-duplex conversion system we were going to use, we chose this [bus buffer](https://www.ti.com/product/SN74LVC1G126/part-details/SN74LVC1G126DBVR) instead of the 74LS176 since this properly deals with direction and data voltage. We were able to find this through some research on the typical chips used with the FeeTech STS3215 motors we selected.
+
+**Tasks Completed**
+-
+- Revised voltage regulation system
+- Set up breadboard sensing setup
+- Found a better bus buffer for half-duplex conversion
