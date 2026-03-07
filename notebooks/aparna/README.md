@@ -197,7 +197,7 @@ After discussing with a TA in lab and consulting an electrical engineering frien
 
 In terms of our breadboard setup, I did some research into how we should wire up the conducitve rubber cord to read the sensor readings from the arduino IDE, and I came across this link [measuring stretch forces](https://www.hackster.io/Juliette/measuring-stretch-forces-with-a-conductive-rubber-cord-d1528e)
 
-<
+
 Then in terms of the half-duplex conversion system we were going to use, we chose this [bus buffer](https://www.ti.com/product/SN74LVC1G126/part-details/SN74LVC1G126DBVR) instead of the 74LS176 since this properly deals with direction and data voltage. We were able to find this through some research on the typical chips used with the FeeTech STS3215 motors we selected.
 
 **Tasks Completed**
