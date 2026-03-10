@@ -163,4 +163,10 @@ Control:
 - Add Schematic for each subsytem (DESIGN DOC)
 - How to convert ADC reading to tension reading
 
+# 2026-03-9 - Breadboard Demo Notes
+-Servo motor needs 7.4V, we use a buck converter to step it down to 3.3V for ESP32
+-The SN74LVC1G126DBVR is a ttl converter works at 3.3 bc other ttl converter only worked at 5V
+- The TTL converter is the middleman between the ESP32 and the smart servo DATA line so they can communicate safely on one wire.
+- We still need a safe receive path from the servo back to the ESP32, which we can use a voltage Divider circuit for
+-SERVO data can be around 5V but ESP32 can only accept 3.3
 
