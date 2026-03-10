@@ -147,5 +147,20 @@
     - Make the status LED into something to signify that the vest is actually working- have it blink when theres bad posture and be lit up when there is good posture to be able to demo to professors
     - test the stretch sensors first
 
+ **Date:** 3/9/2026
+
+**Meeting Objectives:**
+* Breadboard demo prep
+
+**Record:**
+* instead of voltage regulator: 3V-17V 1A Step-Down Converters with DCS-Control
+    - why: more reliable
+* plan is to demo using LED to show when servo should be moving
+    - demoing sensing subsystem
+
+
+
+
+
 
 
