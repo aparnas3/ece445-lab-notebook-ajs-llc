@@ -205,3 +205,89 @@ Then in terms of the half-duplex conversion system we were going to use, we chos
 - Revised voltage regulation system
 - Set up breadboard sensing setup
 - Found a better bus buffer for half-duplex conversion
+
+# 2026-03-11-26 - Schematic Meeting
+
+**Objectives** 
+- Complete schematic for Front Panel PCB
+- Complete schematic for Main PCB
+
+**Hardware Schematic Build Map**
+-
+This map that i made using data sheets and gemini to get a good grasp of how electrical connections work serves as a reference for the KiCad schematic and PCB layout for the vest, schematics are still in progress. I also created a connection for the Muscle/Motor PCB, and delegated the work of that to Jordyn.
+
+## 1. Muscle PCB
+| Category | Component | Connection | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Power In** | **XT30PW** | (+) to VBAT, (-) to GND | Main battery entry |
+| **Protection** | **Mini Blade Fuse** | In: VBAT, Out: VBAT_FUSED | Overcurrent protection |
+| **Switching** | **TPS26630RGE** | IN: VBAT_FUSED, OUT: VSYS_SW | High-side power cut / eFuse |
+| **Control** | **LTC2950CTS8-1** | PB: PWR_BTN, EN: TPS26630 EN | On/Off latching controller |
+| **Logic Rail** | **TPS62162DSGT** | VIN: VSYS_SW, VOUT: 3V3 | 3.3V Buck for logic |
+| **Servo Bus** | **74LVC1G126** | A: TX, Y: SERVO_DATA, OE: DIR | Tri-state half-duplex buffer |
+| **Servo Header 1** | **3-Pin Header** | V+: VSYS_SW, GND, Data: SERVO_DATA | Motor 1 connector |
+| **Servo Header 2** | **3-Pin Header** | V+: VSYS_SW, GND, Data: SERVO_DATA | Motor 2 connector |
+| **Interconnect** | **BRAIN_LINK (6-pin)** | 3V3, GND, TX, RX, DIR, Spare | Connection to Brain PCB |
+
+## 2. Brain PCB
+| Category | Component | Connection | Purpose |
+| :--- | :--- | :--- | :--- |
+| **MCU** | **ESP32-C6-WROOM-1** | VDD: 3V3, GND: GND | Main Controller |
+| **UART Bus** | **UART Pins** | TX: Pin 3, RX: Pin 4, DIR: Pin 5 | Servo communication logic |
+| **Sensor 1** | **B2B-PH (2-pin)** | Pin 1: 3V3, Pin 2: ADC_CORD1 | Stretch sensor 1 input |
+| **Sensor 2** | **B2B-PH (2-pin)** | Pin 1: 3V3, Pin 2: ADC_CORD2 | Stretch sensor 2 input |
+| **Voltage Div** | **10k Resistors** | ADC_CORDx to GND | Pull-down for stretch sensors |
+| **UI Interface** | **FRONT_UI (6-pin)** | 3V3, GND, LED1, LED2, BOOT, EN | Connection to Front Panel |
+
+## 3. Front Panel
+| Category | Component | Connection | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Main Power** | **Momentary Button** | Between PWR_BTN and GND | Latching power toggle |
+| **Boot Mode** | **Momentary Button** | Between BOOT_BTN and GND | Programming mode trigger |
+| **Reset** | **Momentary Button** | Between EN_BTN and GND | Hard hardware reset |
+| **Status LED** | **System LED** | 3V3 - Resistor - LED - GND | Visual "System Alive" indicator |
+| **Cord LED 1** | **Indicator LED 1** | LED_CORD1 - Resistor - LED - GND | Sensor 1 feedback |
+| **Cord LED 2** | **Indicator LED 2** | LED_CORD2 - Resistor - LED - GND | Sensor 2 feedback |
+
+
+**Tasks Completed**
+- Completed the connection map for the front panel, schematic still IP
+- Completed the connection map for the main panel, schematic still IP
+
+# 2026-03-12-26 - Schematic Meeting
+
+**Objectives** 
+- Complete schematic for Front Panel PCB
+- Complete schematic for Main PCB
+<br>
+
+Note: i made the current footprints hand solder, we would need to change it for the baking solder. 
+
+I added the front panel and main schematics and also already selected the footprints for the mian
+for the front panel, so the goal is to get my partners to select LEDs and Buttons that are big enough and bright enough
+
+Main PCB Schematic First Draft
+<img width="1376" height="818" alt="image" src="https://github.com/user-attachments/assets/41bb9bb3-b644-454c-b406-0bc98a53f3d7" />
+<br>
+
+Front Panel Schematic First Draft
+<img width="1145" height="806" alt="image" src="https://github.com/user-attachments/assets/3ad61809-5944-48bc-ae22-0cdea0770fbe" />
+<br>
+
+Front Panel PCB Design First Draft
+<img width="847" height="886" alt="image" src="https://github.com/user-attachments/assets/d85dc633-2954-4e88-92fb-bd9de86214e6" />
+
+**Remaining Tasks for first order of PCBs**
+- PCB for main
+- Footprints for front
+- PCB for front
+- Complete schematic for power?
+- Footprints for power
+- PCB for Power
+
+**Tasks Completed**
+-
+- Completed schematic for Front Panel PCB
+- Completed schematic for Main PCB
+
+
