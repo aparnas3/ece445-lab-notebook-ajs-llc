@@ -157,6 +157,38 @@
     - why: more reliable
 * plan is to demo using LED to show when servo should be moving
     - demoing sensing subsystem
+ 
+
+ 
+ **Date:** 3/23/2026
+
+**Meeting Objectives:**
+* Updates on what has been done in the past weeks
+* plans
+* Notes from TA meeting
+
+**Record:**
+* Updates:
+    - working on PCB
+    - Currently routing the power and actuation subsystem PCB in KiCad
+    - Goal is to order PCB ourselves so it comes earlier
+    - Rerouting the PCB according to TA meeting (discussed later)
+* Plans:
+    - Order PCB by tonight (Monday 3/23)
+    - Work on breadboard demo stuff for this week (minus ttl converter and buck converter stuff)
+    - Need to get subsystems working on the breadboard by Friday
+    - Will create the physical vest on Sunday
+* TA Meeting and General PCB info
+    - Currently working on Power and Actuation PCB
+    - Can not connect grounds bc we can connect them to ground plane under pcb
+    - Use vias to make electrical connections through the front to the back of the board if routes are crossing
+    - Use 1 layer for horizontal connections; Use 2nd layer for vertical
+    - Schematic:
+      <img width="1316" height="794" alt="image" src="https://github.com/user-attachments/assets/efb92b54-b1e2-4a67-bb55-fb77c58103b3" />
+    - Current layout (before routing):
+      <img width="776" height="720" alt="image" src="https://github.com/user-attachments/assets/b386e0ac-ee08-4c29-ae0a-0a11ff9b9086" />
+
+      
 
 
 
