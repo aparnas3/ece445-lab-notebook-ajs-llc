@@ -170,3 +170,13 @@ Control:
 - We still need a safe receive path from the servo back to the ESP32, which we can use a voltage Divider circuit for
 -SERVO data can be around 5V but ESP32 can only accept 3.3
 
+
+# 2026-03-23 - Update
+- So we decided to split up our system into 3 PCBs: one for the front panel, one for the power&actuation system, and one for the rest fo the system
+- Our goal is to get all 3 ordered by today or tommorrow
+- The rest of the week we will be working on our breadboard demo
+- next week our goal is to start the physical deisgn portion, 3d printing and actual vest design
+- here is the PCB we are currently working on:
+- <img width="715" height="624" alt="Screen Shot 2026-03-23 at 10 26 30 AM" src="https://github.com/user-attachments/assets/20c94d9e-9542-4ffc-9b94-0f12f2c7f7ff" />
+
+
