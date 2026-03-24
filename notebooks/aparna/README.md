@@ -131,7 +131,7 @@ Here are a list of things he suggested for our proposal:
 We also checked out the ESP32 dev board for testing on breadboard which will start completing in the next week or so.
 
 
-# 2026-02-27-26 - Group Meeting
+# 2026-02-27 - Group Meeting
 
 **Objectives** 
 -
@@ -175,7 +175,7 @@ We ended up going for a [2S 8.4V 10A Li-ion ProtectionBoard](https://www.amazon.
 - Completed the block diagrams and schematics 
 - Completed the ethics section of the paper 
 
-# 2026-03-06-26 - Group Meeting
+# 2026-03-06 - Group Meeting
 
 **Objectives** 
 -
@@ -206,7 +206,7 @@ Then in terms of the half-duplex conversion system we were going to use, we chos
 - Set up breadboard sensing setup
 - Found a better bus buffer for half-duplex conversion
 
-# 2026-03-11-26 - Schematic Meeting
+# 2026-03-11 - Schematic Meeting
 
 **Objectives** 
 -
@@ -256,7 +256,7 @@ This map that i made using data sheets and gemini to get a good grasp of how ele
 - Completed the connection map for the front panel, schematic still IP
 - Completed the connection map for the main panel, schematic still IP
 
-# 2026-03-12-26 - Schematic Meeting
+# 2026-03-12 - Schematic Meeting
 
 **Objectives** 
 -
@@ -310,3 +310,25 @@ If the voltage sags too hard when the servos stall, I'll just parallel two of th
 **Tasks Completed**
 -
 - Selected the potential proper battery (have not ordered yet)
+
+# 2026-03-24 - Continuing PCB Design to order 
+
+**Objectives** 
+- 
+- Complete the main PCB layout 
+
+Spent most of today wrestling with the ESP32-C6 placement (U1). I moved it toward the top edge to make sure the antenna area is clear of any copper—deadass do not want the ground plane killing the WiFi signal while we’re trying to stream posture data. I also noticed the 3V3 trace was looking a bit thin near R7, so I beefed up the copper width.
+
+For the USB-C part (J3), I finally got the 5.1k resistors (R8/R9) placed so the board actually negotiates power correctly. I threw in some 0-ohm jumpers (R10/R11) on the data lines too, mostly as a "just in case" so I can hardware-isolate the USB if it starts interfering with the UART lines. The routing for the stretch sensor connectors (J2 and J5) is done.
+
+I also double-checked the B6B-PH connectors (J1 and J4) to make sure they match the Muscle PCB pinout 1:1. It would be a total nightmare to have to cross-wire a custom cable harness because I flipped a header on the layout. Everything looks pretty clean now, just need to do a final pass on the ground pour.
+
+
+<img width="910" height="657" alt="image" src="https://github.com/user-attachments/assets/13e0c246-7db4-4b12-885c-b1ed6bb6344c" />
+
+**Next Steps**
+- Need to run a full DRC to make sure I didn't leave any tiny slivers of copper near the USB pads. I also want to check the ground via stitching around the ESP32 thermal pad (Pin 29) to make sure the heat dissipation is solid before I order this one.
+
+**Tasks Completed**
+-
+- Completed PCB design, waiting to order the full batch of PCBs
