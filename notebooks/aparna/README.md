@@ -317,7 +317,7 @@ If the voltage sags too hard when the servos stall, I'll just parallel two of th
 - 
 - Complete the main PCB layout 
 
-Spent most of today wrestling with the ESP32-C6 placement (U1). I moved it toward the top edge to make sure the antenna area is clear of any copper—deadass do not want the ground plane killing the WiFi signal while we’re trying to stream posture data. I also noticed the 3V3 trace was looking a bit thin near R7, so I beefed up the copper width.
+Spent most of today wrestling with the ESP32-C6 placement (U1). I moved it toward the top edge to make sure the antenna area is clear of any copper, do not want the ground plane killing the WiFi signal while we’re trying to stream posture data. I also noticed the 3V3 trace was looking a bit thin near R7, so I beefed up the copper width.
 
 For the USB-C part (J3), I finally got the 5.1k resistors (R8/R9) placed so the board actually negotiates power correctly. I threw in some 0-ohm jumpers (R10/R11) on the data lines too, mostly as a "just in case" so I can hardware-isolate the USB if it starts interfering with the UART lines. The routing for the stretch sensor connectors (J2 and J5) is done.
 
