@@ -209,6 +209,7 @@ Then in terms of the half-duplex conversion system we were going to use, we chos
 # 2026-03-11-26 - Schematic Meeting
 
 **Objectives** 
+-
 - Complete schematic for Front Panel PCB
 - Complete schematic for Main PCB
 
@@ -251,12 +252,14 @@ This map that i made using data sheets and gemini to get a good grasp of how ele
 
 
 **Tasks Completed**
+-
 - Completed the connection map for the front panel, schematic still IP
 - Completed the connection map for the main panel, schematic still IP
 
 # 2026-03-12-26 - Schematic Meeting
 
 **Objectives** 
+-
 - Complete schematic for Front Panel PCB
 - Complete schematic for Main PCB
 <br>
@@ -291,3 +294,19 @@ Front Panel PCB Design First Draft
 - Completed schematic for Main PCB
 
 
+# 2026-03-23-26 - Figuring out batteries (also group meeting after break)
+**Objectives** 
+- 
+- Weigh options for batteries 
+- Order the correct battery for our project
+
+
+This meeting I mainly did research on batteries, and what would be the most optimal to use for our vest.
+Swapping out the battery plan today. The [GOLDBAT 5000mAh LiPo](https://www.amazon.com/GOLDBAT-5000mAh-Hardcase-Battery-Airplane/dp/B07QSF3LSS) is massive overkill and honestly a safety hazard for a wearable—don't need 50C discharge to move a couple of servos, and I'd rather not have a literal brick on the user's back. 
+
+Moving to the [Blomiky 7.4V 600mAh Li-ion](https://a.co/d/0hM1jaxR) packs instead. They are way lighter and fit the form factor better. Only annoyance is the connector: it uses an SM-4P black 4-pin plug. I'm going to have to hack that off and solder on an XT30 to actually interface with the Motor PCB. 
+If the voltage sags too hard when the servos stall, I'll just parallel two of them or find a bigger Li-ion later.
+
+**Tasks Completed**
+-
+- Selected the potential proper battery (have not ordered yet)
