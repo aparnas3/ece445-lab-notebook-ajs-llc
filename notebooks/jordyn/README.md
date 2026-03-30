@@ -160,7 +160,7 @@
  
 
  
- **Date:** 3/23/2026
+**Date:** 3/23/2026
 
 **Meeting Objectives:**
 * Updates on what has been done in the past weeks
@@ -187,12 +187,33 @@
       <img width="1316" height="794" alt="image" src="https://github.com/user-attachments/assets/efb92b54-b1e2-4a67-bb55-fb77c58103b3" />
     - Current layout (before routing):
       <img width="776" height="720" alt="image" src="https://github.com/user-attachments/assets/b386e0ac-ee08-4c29-ae0a-0a11ff9b9086" />
+    - Final layout:
+      <img width="768" height="703" alt="image" src="https://github.com/user-attachments/assets/ee14a1a0-93eb-449e-9fd5-deb579948154" />
+
+**Date:** 3/26/2026
+
+**Meeting Objectives:**
+* still finishing up 1 pcb to order today
+* possibly looking at some vest design ideas
+    - will be more detailed on fabric and pcb layout on the vest early next week
+
+**Record:**
+* PCB ordered to Hub
+* Starting to look at some ideas for 3D printed spools
 
       
+**Date:** 3/27/2026
 
+**Meeting Objectives:**
+* Meeting about next steps in breadboarding- planning to be able to demo all subsystems except the power (since we do not have regulators for breadboard)
+* Meeting with seamstress this week to sew our physical vest
+* This week's plan:
+    - Individual reports - DUE WED
+    - Keep working on breadboarding subsystems -DEMO NEXT WEEK
+    - Seamstress meeting TBD
 
-
-
-
-
-
+**Record:**
+* Updates:
+    - Splitting up work
+    - 2 people on breadboarding subsystems
+    - 1 person on 3D printing design
