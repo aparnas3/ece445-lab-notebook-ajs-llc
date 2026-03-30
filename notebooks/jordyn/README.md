@@ -187,7 +187,7 @@
       <img width="1316" height="794" alt="image" src="https://github.com/user-attachments/assets/efb92b54-b1e2-4a67-bb55-fb77c58103b3" />
     - Current layout (before routing):
       <img width="776" height="720" alt="image" src="https://github.com/user-attachments/assets/b386e0ac-ee08-4c29-ae0a-0a11ff9b9086" />
-    - Final layout:
+    - Final layout: 
       <img width="768" height="703" alt="image" src="https://github.com/user-attachments/assets/ee14a1a0-93eb-449e-9fd5-deb579948154" />
 
 **Date:** 3/26/2026
