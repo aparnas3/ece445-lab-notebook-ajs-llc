@@ -294,7 +294,7 @@ Front Panel PCB Design First Draft
 - Completed schematic for Main PCB
 
 
-# 2026-03-23-26 - Figuring out batteries (also group meeting after break)
+# 2026-03-23 - Figuring out batteries (also group meeting after break)
 **Objectives** 
 - 
 - Weigh options for batteries 
@@ -333,7 +333,7 @@ I also double-checked the B6B-PH connectors (J1 and J4) to make sure they match 
 -
 - Completed PCB design, waiting to order the full batch of PCBs
 
-## 2026-03-30: Finalizing Parts and PCB Order
+# 2026-03-30: Finalizing Parts and PCB Order
 **Objectives** 
 - 
 - Order all the PCBs
