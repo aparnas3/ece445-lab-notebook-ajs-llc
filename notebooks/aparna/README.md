@@ -332,3 +332,24 @@ I also double-checked the B6B-PH connectors (J1 and J4) to make sure they match 
 **Tasks Completed**
 -
 - Completed PCB design, waiting to order the full batch of PCBs
+
+## 2026-03-30: Finalizing Parts and PCB Order
+**Objectives** 
+- 
+- Order all the PCBs
+- Order any extra parts that are needed to complete the vest  
+
+Finally ordered the PCBs today. The shipping charge from the fab was $37.86 shipping for a $4.00 order.
+
+Spent the rest of the day hunting down the last of the power components and figuring out the battery situation. We're looking at a [JUZUXI 3000mAh Li-ion pack](https://www.amazon.com/JUZUXI-Rechargeable-Batteries-Connector-Compatible/dp/B0DBZG1GLY) which has a much better capacity-to-weight ratio than the old LiPos. It comes with a Deans/T-Plug though, so I found some [Deans to XT30 adapters](https://www.amazon.com/Deans-T-Female-Connector-Adapter-Batteries/dp/B09NTG5XKL) to save us from having to resolder the battery leads directly. Also grabbed some [XT30 extension cables](https://www.amazon.com/OliRC-Adapter-Extension-Female-Battery/dp/B0B93VBCC8) just in case the Muscle PCB mounting position is too far from the battery pouch in the vest.
+
+For the reservoir caps on the Motor PCB, Jordyn and I settled on a [1000uF Nichicon](https://www.digikey.com/en/products/detail/nichicon/UVR1C102MPD/588785). It's rated for 16V which gives us plenty of headroom for the 7.4V nominal bus, and it should stop the ESP32 from browning out when the servos spike. I also grabbed the [Wurth ceramic caps](https://www.digikey.com/en/products/detail/w-rth-elektronik/885012207014/5454651) for the high-frequency decoupling near the buck converter. 
+
+Everything is officially in flight now. Once the boards get here, it's straight to the soldering station to see if this power tree actually holds up under load.
+
+**Tasks Completed**
+-
+- Completed the PCB order 
+- Ordered the extra parts on amazon
+- Gave the extra digikey parts to Frey to order on our behalf
+
