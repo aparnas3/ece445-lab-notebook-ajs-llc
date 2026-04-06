@@ -353,3 +353,29 @@ Everything is officially in flight now. Once the boards get here, it's straight 
 - Ordered the extra parts on amazon
 - Gave the extra digikey parts to Frey to order on our behalf
 
+# 2026-04-06: Servo Control & BLE Integration Testing
+**Objectives** 
+- 
+- Establish reliable half-duplex communication with the STS3215 servos
+- Solve the missing component issues for the final PCB assembly
+
+I realized the 5.1k ohm resistor packet was empty. I ordered some [Chanzon 100k SMD 0805 resistors](https://www.amazon.com/Chanzon-Resistor-Tolerance-Resistors-Certificated/dp/B08QS2WPNQ) to make sure we have everything we need for the pull-ups and dividers on the final board. It’s a minor setback, but we can’t finish the sensory logic without them. 
+
+On the software side, I spent a few hours dialing in the half-duplex communication. I found a great [GitHub library by Matthieu Vigne](https://github.com/matthieuvigne/STS_servos) specifically for FeeTech STS servos. This was huge because it handles the little-endian byte conversion and torque register switching automatically, which is way better than us trying to hardcode raw hex packets. My testing procedure involved using an FE-URT-1 bridge to bridge the ESP32-C6 to the servos. I mapped the TX/RX to GPIO 16 and 17, and I had to be super careful to toggle the FE-URT-1 level switch to 3.3V so I didn't fry the ESP32. 
+
+**Wiring:**
+- ESP32 TX (GPIO17) → FE-URT-1 UART TX pin
+- ESP32 RX (GPIO16) → FE-URT-1 UART RX pin
+- ESP32 GND → FE-URT-1 GND
+- Toggle the level switch on FE-URT-1 to 3.3V
+- External power supply → FE-URT-1 power terminal
+- FE-URT-1 SCS port → servo
+
+The end of the day was spent merging this with the BLE stack. Jordyn ran into a frustrating "Failed to connect" error where the TX path seemed down on COM6, but we eventually got the code flashed. We successfully got the servo responding to pings while the BLE was active, so the next step is just cleaning up the timing.
+
+**Tasks Completed**
+-
+- Sourced and ordered [100k SMD resistors](https://www.amazon.com/Chanzon-Resistor-Tolerance-Resistors-Certificated/dp/B08QS2WPNQ) for the sensory pull-up circuits
+- Integrated the STS servo driver library and configured custom UART pins for the ESP32-C6
+- Established a stable BLE server on the C6 for remote command handling
+- Successfully executed position sweeps (0 to 4095) via the FE-URT-1 bridge and confirmed torque engagement
