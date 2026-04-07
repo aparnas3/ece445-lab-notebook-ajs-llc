@@ -217,3 +217,31 @@
     - Splitting up work
     - 2 people on breadboarding subsystems
     - 1 person on 3D printing design
+
+
+**Date:** 3/30/2026
+
+**Meeting Objectives:**
+* Figuring out wireless
+
+**Record:**
+* for the motors we will be using this library's code: https://github.com/matthieuvigne/STS_servos/blob/main/src/STSServoDriver.cpp 
+  <img width="1104" height="767" alt="image" src="https://github.com/user-attachments/assets/20406ea5-43d7-4194-a355-d2204fe9a11f" />
+  
+
+
+
+**Date:** 4/6/2026
+
+**Meeting Objectives:**
+* Testing PCBs and soldering
+
+**Record:**
+* To test everything:
+    - reistance: top right button (ohms)
+    - capacitance: shift then freq button
+    - continuity is to see if anything is connected
+* Bluetooth development
+    - using nRF app on iphone to test connection
+    - must use BLE for our implementation
+    - currently printing state- should we also take samples of numbers or send over timer to app as well?
