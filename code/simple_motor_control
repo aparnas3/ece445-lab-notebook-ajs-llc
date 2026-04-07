@@ -1,0 +1,47 @@
+#include <Arduino.h>
+#include "src/STSServoDriver.h"
+
+#define RXD 5
+#define TXD 4
+
+STSServoDriver servos;
+const byte SERVO_ID = 1;
+
+void setup() {
+  Serial.begin(115200);
+  Serial1.begin(1000000, SERIAL_8N1, RXD, TXD);
+  delay(1000);
+
+  if (Serial1) {
+    Serial.printf("Serial1(%d,%d) is ready\n\r", RXD, TXD);
+  }
+
+  if (servos.init(&Serial1)) {
+    Serial.printf("Servos are ready\n\r");
+  } else {
+    Serial.printf("No servo found\n\r");
+  }
+
+  servos.setMode(0xFE, STSMode::POSITION);
+}
+
+void loop() {
+  if (!servos.ping(SERVO_ID)) {
+    Serial.printf("servo-%02d not responding\n\r", SERVO_ID);
+  }
+
+  servos.setTargetPosition(SERVO_ID, 0);
+  delay(100);
+  while (servos.isMoving(SERVO_ID)) delay(50);
+  delay(500);
+
+  servos.setTargetPosition(SERVO_ID, 2048);
+  delay(100);
+  while (servos.isMoving(SERVO_ID)) delay(50);
+  delay(500);
+
+  servos.setTargetPosition(SERVO_ID, 4095, 500);
+  delay(100);
+  while (servos.isMoving(SERVO_ID)) delay(50);
+  delay(500);
+}
