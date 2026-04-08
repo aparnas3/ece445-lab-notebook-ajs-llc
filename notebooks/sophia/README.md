@@ -180,3 +180,31 @@ Control:
 - <img width="715" height="624" alt="Screen Shot 2026-03-23 at 10 26 30 AM" src="https://github.com/user-attachments/assets/20c94d9e-9542-4ffc-9b94-0f12f2c7f7ff" />
 
 
+# 2026-04-7 - Soldering and Breadboard Demo Update
+
+
+Breadboard Demo:
+
+Today, we made good progress on the breadboard demo and overall system integration. We successfully demonstrated three key subsystems: actuation, sensing, and wireless/Bluetooth communication. We also finalized the vest design and were able to demonstrate the difference between slouched posture and correct posture on a human body.
+
+
+Soldering:
+
+For PCB assembly, I am currently working on soldering all of the boards. So far, I have soldered all resistors and capacitors, while the remaining components are still pending arrival. After soldering, I verified component values using the multimeter by checking both resistance and capacitance. For capacitance measurements, the multimeter can be switched to the capacitance setting by using the Shift and Frequency functions.
+
+
+Heat Gun Instructions:
+
+For soldering smaller components with fine pads, we will likely need to use either the heat gun or the soldering oven. Frey showed us how to use the heat gun process.
+1. the heat gun is heated to about 350°F. It is important to be careful and make sure no one is standing in front of it, since it becomes very hot.
+2. Solder paste is then applied around the pads; it does not need to be extremely precise.
+3.  After that, flux is added around the area to help prevent bridging.
+4.  The heat gun is then used to melt the solder onto the pads, and the solder should settle into the correct locations because of the flux.
+5.  The component can then be placed onto the pads, and the heat gun is used again to attach it fully.
+
+
+Soldering Oven:
+ 
+ We may also use the PCB oven for some components that are better suited for reflow soldering.
+
+Instructions:  https://courses.grainger.illinois.edu/ece445/lab/Using%20the%20PCB%20Oven%20SP25.pdf
