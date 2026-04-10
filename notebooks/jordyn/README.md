@@ -245,3 +245,16 @@
     - using nRF app on iphone to test connection
     - must use BLE for our implementation
     - currently printing state- should we also take samples of numbers or send over timer to app as well?
+ 
+
+**Date:** 4/9/2026
+
+**Meeting Objectives:**
+* App dev research and planning
+
+**Record:**
+* Tools
+    - 
+* Steps
+    - 
+
