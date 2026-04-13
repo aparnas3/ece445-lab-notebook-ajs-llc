@@ -407,3 +407,20 @@ What we ended up discussing as a group is as following: I’m taking over the re
 - Created clear path for the tasks that are left at hand
 - Placed the order for some extra parts
 - Sophia started the manual soldering for the initial component sets
+
+# 2026-04-16: Sick Week - Ordering 2nd Draft of Main PCB
+
+**Objectives** 
+- 
+- Finalize edits to the 2nd version of our Main PCB
+- CAD of the spools
+
+I realized the first iteration was way too restrictive since I didn't break out the unused ESP32-C6 pins. By making a new version with all pins exposed on a standard header, we’ll actually have the flexibility to add debug signals or swap sensor pins if our current mapping fails during integration. 
+
+The bigger issue is the UART conflict—right now, the onboard USB-to-Serial chip and the FE-URT-1 motor driver are both fighting for the same TX/RX lines. This hardware competition is a huge red flag for signal corruption. Breaking everything out to a header lets us physically isolate those lines or remap the servos to a clean, dedicated UART path so the motor driver isn't constantly fighting the programming interface.
+
+**Tasks Completed** 
+- 
+- Finished the schematic of the new PCB ( still need to do board design )
+- Delegated the work of the spool CADing due to illness (went to carle unfortunately) 
+
