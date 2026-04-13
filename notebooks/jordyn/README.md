@@ -256,7 +256,9 @@
 * Tools
     - 
 * Steps
-
+    - 
+* Issues/Reworking
+    - making an Android-only app bc we do not want to pay for Apple developer account; Android makes this easier
 
 **Date:** 4/13/2026
 
