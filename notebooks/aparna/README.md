@@ -419,6 +419,11 @@ I realized the first iteration was way too restrictive since I didn't break out 
 
 The bigger issue is the UART conflict—right now, the onboard USB-to-Serial chip and the FE-URT-1 motor driver are both fighting for the same TX/RX lines. This hardware competition is a huge red flag for signal corruption. Breaking everything out to a header lets us physically isolate those lines or remap the servos to a clean, dedicated UART path so the motor driver isn't constantly fighting the programming interface.
 
+Schematic for the 2nd draft of the main PCB:
+<img width="1420" height="787" alt="image" src="https://github.com/user-attachments/assets/dd3fdd63-ad7a-4f50-b2cd-ce787e6c0b1a" />
+
+<br>
+
 **Tasks Completed** 
 - 
 - Finished the schematic of the new PCB ( still need to do board design )
