@@ -250,11 +250,24 @@
 **Date:** 4/9/2026
 
 **Meeting Objectives:**
-* App dev research and planning
+* App dev
 
 **Record:**
 * Tools
     - 
 * Steps
-    - 
+
+
+**Date:** 4/13/2026
+
+**Meeting Objectives:**
+* App dev
+
+**Record:**
+* Link to download app on Android: https://expo.dev/accounts/jordynandrews/projects/apcv-app/builds/6d55fa9b-23c0-4794-a790-f7da39d999aa
+* QR code to download app:
+  <img width="1443" height="775" alt="image" src="https://github.com/user-attachments/assets/be9171c8-97bb-40bb-a953-33cfdd85e570" />
+
+
+
 
