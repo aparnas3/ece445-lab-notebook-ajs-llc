@@ -429,3 +429,25 @@ Schematic for the 2nd draft of the main PCB:
 - Finished the schematic of the new PCB ( still need to do board design )
 - Delegated the work of the spool CADing due to illness (went to carle unfortunately) 
 
+# 2026-04-20: Finally Ordering 2nd Draft of Main PCB (still sick)
+
+**Objectives** 
+- 
+- Finish the 2nd draft of Main PCB
+- Order the 2nd draft of Main PCB
+
+
+Final PCB Design for the 2nd draft of the Main PCB:
+<img width="1260" height="737" alt="image" src="https://github.com/user-attachments/assets/7ce93209-a783-43fc-a251-7218d6c877c5" />
+
+
+<br>
+<br>
+
+I also ended up placing an order for these PCBs so they should come in soon, we may not need to use them but I ordered them just in case we have that compatibiltiy issue. The total came to be around 50 bucks because of shipping costs as well.  
+
+**Tasks Completed** 
+- 
+- Finished the 2nd draft of Main PCB
+- Ordered the 2nd draft of Main PCB
+
