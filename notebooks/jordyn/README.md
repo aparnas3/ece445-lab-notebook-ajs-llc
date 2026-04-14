@@ -206,17 +206,38 @@
 
 **Meeting Objectives:**
 * Meeting about next steps in breadboarding- planning to be able to demo all subsystems except the power (since we do not have regulators for breadboard)
-* Meeting with seamstress this week to sew our physical vest
+* Meeting with seamstress this week to plan to sew our physical vest
 * This week's plan:
     - Individual reports - DUE WED
     - Keep working on breadboarding subsystems -DEMO NEXT WEEK
-    - Seamstress meeting TBD
 
 **Record:**
 * Updates:
     - Splitting up work
     - 2 people on breadboarding subsystems
     - 1 person on 3D printing design
+ 
+
+**Date:** 3/29/2026
+
+**Meeting Objectives:**
+* sew vest and fit to someone specifically
+
+**Record:**
+* using neoprene for vest- stretches but still durable
+* rethinking strap placement- elastics stretch so they dont actually correct anything
+    - thinking maybe ribbon or nylon for the fabric for this?
+* we started to realize how important the physical vest design will be since different people get different readings
+    - made vest to fit Sophia but could also fit Aparna
+* still thinking about straps and placement of stretch sensors on vest but that will be another session
+    - possibly thinking of crossing the ribbon/nylon straps still to be wound up by motors
+    - place stretch sensors on their own from the shoulder to mid-back?
+* FRONT:
+  <img width="386" height="454" alt="image" src="https://github.com/user-attachments/assets/9ce8179d-cb51-4bfd-8792-6196f06ba283" />
+
+* BACK:
+  <img width="405" height="507" alt="image" src="https://github.com/user-attachments/assets/485b39a2-9231-49bc-b7fb-83d5fddf4b0a" />
+
 
 
 **Date:** 3/30/2026
@@ -245,7 +266,22 @@
     - using nRF app on iphone to test connection
     - must use BLE for our implementation
     - currently printing state- should we also take samples of numbers or send over timer to app as well?
- 
+
+
+ **Date:** 4/7/2026
+
+**Meeting Objectives:**
+* sewing straps onto vest
+
+**Record:**
+* chose ribbon for straps since it should be durable enough + cheaper and easier to keep 1 size
+* we found that attaching the ribbon to the front of the vest will be best
+* crossed the ribbon in the back- did testing by pullung and it seems to correct posture very well!
+* next step is to get the spools done and start doing some calculations with how much the motor should spin
+* FRONT: **
+* BACK: **
+  
+
 
 **Date:** 4/9/2026
 
@@ -254,9 +290,22 @@
 
 **Record:**
 * Tools
-    - 
+    - Expo
+    - EAS Build
+    - Node.js
+    - VS Code
+    - Git
+    - react-native-ble-plx
+    - Android phone
+    - nRF Connect
+    - ESP32
 * Steps
-    - 
+    - researched how to make an app that can communicate with the ESP32- BLE is only option
+    - confirmed last week in BB demo that the Bluetooth connection to the ESP32 does work uring the nRF Connect app on iPhone
+    - First tried making iPhone app->later switched to Andrioid due to subscription requirements on iPhone
+    - We will be switching to an Android-only app (for now) to avoid extra costs
+    - Chose to use Expo with a custom dev build because Expo Go does not support BLE (BLE needs native support)
+    - installed Node.js, had VSCode, had Git
 * Issues/Reworking
     - making an Android-only app bc we do not want to pay for Apple developer account; Android makes this easier
 
@@ -266,6 +315,12 @@
 * App dev
 
 **Record:**
+* Finished setting up app creation:
+    - Created a new expo project in the terminal in the folder ece445_android_app->apcv-app
+    - Configured EAS build for Android-only
+    - Generated Android keystore for app signing
+    - Resolved some setup issues->mostly Powershell script restrictions/build config
+    - getting a QR code was a SUCCESS!
 * Link to download app on Android: https://expo.dev/accounts/jordynandrews/projects/apcv-app/builds/6d55fa9b-23c0-4794-a790-f7da39d999aa
 * QR code to download app:
   <img width="1443" height="775" alt="image" src="https://github.com/user-attachments/assets/be9171c8-97bb-40bb-a953-33cfdd85e570" />
