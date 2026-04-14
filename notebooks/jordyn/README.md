@@ -273,3 +273,19 @@
 
 
 
+**Date:** 4/14/2026
+
+**Meeting Objectives:**
+* Finalizing schedule and timeline/ due dates
+
+**Record:**
+* My objectives:
+    - finish app basic+testing: WED
+    - finish full app: FRI
+    - sew straps and attach motors: SAT
+
+  
+
+
+
+
