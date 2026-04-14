@@ -379,3 +379,31 @@ The end of the day was spent merging this with the BLE stack. Jordyn ran into a 
 - Integrated the STS servo driver library and configured custom UART pins for the ESP32-C6
 - Established a stable BLE server on the C6 for remote command handling
 - Successfully executed position sweeps (0 to 4095) via the FE-URT-1 bridge and confirmed torque engagement
+
+# 2026-04-13: Planning and Logistics Week
+
+**Objectives** 
+- 
+- Finalize the assembly timeline for the Muscle and Brain PCBs.
+- Coordinate between CAD spool design, app development, and hardware soldering.
+- Order all remaining hardware for the vest integration.
+
+<br>
+
+I spent today sitting down and mapping out the entire week to make sure that we have a solid schedule. The biggest hurdle right now is soldering as we have three separate boards (Motor, Main/Brain, and Front Panel) and we need to transition from hand-soldering the small stuff to using the heat gun for the trickier SMD packages. 
+
+What we ended up discussing as a group is as following: I’m taking over the revised PCB layout for the Main board and getting that order out and I need to handle the CAD for the spool design. Jordyn is going deep on the app interface, and Sophia is going to be doing the soldering. We also need to pivot to the "physical" side of the project—actually sewing the motors onto the vest and finding the right rings to anchor the stretch sensors. It's a lot of moving parts, but if we stick to this schedule, we should have a testable prototype by the weekend.
+
+| Day | Aparna | Sophia | Jordyn |
+| :--- | :--- | :--- | :--- |
+| **Monday** | Order extra PCB components | Hand-solder initial board parts | Core App logic and BLE setup |
+| **Tuesday** | Revise Main PCB & order; CAD setup | Heat gun soldering on Main PCB | App UI and basic testing |
+| **Wednesday** | CAD spool design & first print | Heat gun work for all remaining PCBs | Finalize App functionality |
+| **Thursday** | Print revised spools (if needed) | Finish all PCB soldering | Finalize full App interface |
+| **Friday** | Finalize hardware logistics | Full testing of all PCBs | Sew motors & attach straps |
+
+**Tasks Completed** 
+- 
+- Created clear path for the tasks that are left at hand
+- Placed the order for some extra parts
+- Sophia started the manual soldering for the initial component sets
