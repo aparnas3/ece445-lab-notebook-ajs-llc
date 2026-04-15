@@ -338,6 +338,17 @@
     - finish app basic+testing: WED
     - finish full app: FRI
     - sew straps and attach motors: SAT
+ 
+
+  
+**Date:** 4/15/2026
+
+**Meeting Objectives:**
+* Working on app
+
+**Record:**
+* Thinking I should make something to toggle bluetooth?
+    - That way I can test the app on my computer (UI stuff mostly) without Aparna's phone
 
   
 
