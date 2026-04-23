@@ -352,6 +352,13 @@
 
   
 
+**Date:** 4/23/2026
 
+**Meeting Objectives:**
+* Tweaking Code to detect diff slouches
+
+**Record:**
+* Idea is use 2 stretch sensors and actuate if either one stretches so we can detect sideways slouches as well
+* Maybe cross in the back of the vest to detect this?
 
 
