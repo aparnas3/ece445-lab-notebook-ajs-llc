@@ -1,0 +1,218 @@
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+#include <BLE2902.h>
+#include "src/STSServoDriver.h"
+
+#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define COMMAND_CHAR_UUID "12345678-1234-1234-1234-1234567890ac"
+#define DATA_CHAR_UUID    "12345678-1234-1234-1234-1234567890ad"
+
+//nRF only
+// #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+
+#define RXD 5
+#define TXD 4
+
+#define SERVO_ID_1 3
+#define SERVO_ID_2 1
+#define MOVE_AMOUNT 8000 //prev=9000 in demo
+
+const int sensorPin1 = 0;
+const int ledPin1 = 10;
+
+const int slouchThreshold1 = 425;
+
+// timing variables
+unsigned long slouchStartTime1 = 0;
+unsigned long lastBlinkTime1 = 0;
+
+bool slouching1 = false;
+bool ledState1 = false;
+bool motorActuated = false;
+
+// int restPosition1 = 0;
+// int restPosition2 = 0;
+
+// BLECharacteristic *pCharacteristic;
+BLECharacteristic *pCommandCharacteristic;
+BLECharacteristic *pDataCharacteristic;
+
+String lastStatusMsg = "";
+
+STSServoDriver servos;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(ledPin1, OUTPUT);
+  digitalWrite(ledPin1, LOW);
+
+  // Servo setup
+  Serial1.begin(1000000, SERIAL_8N1, RXD, TXD);
+  delay(1000);
+
+  if (servos.init(&Serial1)) {
+    Serial.println("Servo ready");
+  } else {
+    Serial.println("Servo not found — check wiring");
+  }
+
+  // int target1 = min(restPosition1 + MOVE_AMOUNT, MAX_POS);
+  // int target2 = min(restPosition2 + MOVE_AMOUNT, MAX_POS);
+  // servos.setTargetPosition(SERVO_ID_1, target1, 500);
+  // delay(10);
+  // servos.setTargetPosition(SERVO_ID_2, target2, 500);
+
+  // Broadcast position mode to all connected servos
+  servos.setMode(0xFE, STSMode::STEP);
+
+  Serial.println("Starting BLE work!");
+
+  BLEDevice::init("APCV");
+  BLEServer *pServer = BLEDevice::createServer();
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+
+  // pCharacteristic = pService->createCharacteristic(
+  //   CHARACTERISTIC_UUID,
+  //   BLECharacteristic::PROPERTY_READ |
+  //   BLECharacteristic::PROPERTY_WRITE |
+  //   BLECharacteristic::PROPERTY_NOTIFY
+  // );
+
+  // pCharacteristic->addDescriptor(new BLE2902());
+  // pCharacteristic->setValue("S1: GOOD_POSTURE");
+
+  pCommandCharacteristic = pService->createCharacteristic(
+    COMMAND_CHAR_UUID,
+    BLECharacteristic::PROPERTY_WRITE
+  );
+
+  pDataCharacteristic = pService->createCharacteristic(
+    DATA_CHAR_UUID,
+    BLECharacteristic::PROPERTY_READ |
+    BLECharacteristic::PROPERTY_NOTIFY
+  );
+
+  pDataCharacteristic->addDescriptor(new BLE2902());
+  pDataCharacteristic->setValue("S1: GOOD_POSTURE");
+
+  pService->start();
+
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);
+  pAdvertising->setMaxPreferred(0x12);
+
+  BLEDevice::startAdvertising();
+
+  Serial.println("Characteristic defined! Now you can read it in your phone!");
+}
+
+void loop() {
+  int value1 = analogRead(sensorPin1);
+  float voltage1 = value1 * 3.3 / 4095.0;
+
+  Serial.print("Sensor 1 Raw: ");
+  Serial.print(value1);
+  Serial.print("   Voltage: ");
+  Serial.println(voltage1);
+
+  String status1;
+
+  if (value1 < slouchThreshold1) {
+    Serial.println("Sensor 1: Good Posture");
+
+    digitalWrite(ledPin1, LOW);
+
+    slouching1 = false;
+    ledState1 = false;
+    slouchStartTime1 = 0;
+
+    // if (motorActuated) {
+    //   byte ids[] = {SERVO_ID_1, SERVO_ID_2};
+    //   int positions[] = {max(restPosition1, 0), max(restPosition2, 0)};
+    //   int speeds[] = {500, 500};
+
+    //   servos.setTargetPositions(2, ids, positions, speeds);
+
+    //   motorActuated = false;
+    // }
+
+    if (motorActuated) {
+      servos.setTargetPosition(SERVO_ID_1, MOVE_AMOUNT, 500);
+      delay(10);
+      servos.setTargetPosition(SERVO_ID_2, -MOVE_AMOUNT, 500);
+      motorActuated = false;
+    }
+
+    status1 = "GOOD_POSTURE";
+  } else {
+    Serial.println("Sensor 1: Slouch Detected!");
+
+    if (!slouching1) {
+      slouching1 = true;
+      slouchStartTime1 = millis();
+    }
+
+    unsigned long slouchElapsed1 = (millis() - slouchStartTime1) / 1000;
+
+    Serial.print("Sensor 1 Slouch Time: ");
+    Serial.print(slouchElapsed1);
+    Serial.println(" seconds");
+
+    if (slouchElapsed1 >= 15) {
+      Serial.println("Sensor 1: Slouch over 15s, motors actuating");
+
+      ledState1 = true;
+      digitalWrite(ledPin1, HIGH);
+
+      // if (!motorActuated) {
+      //   restPosition1 = servos.getCurrentPosition(SERVO_ID_1);
+      //   restPosition2 = servos.getCurrentPosition(SERVO_ID_2);
+
+      //   Serial.print("Rest pos 1: "); Serial.println(restPosition1);
+      //   Serial.print("Rest pos 2: "); Serial.println(restPosition2);
+
+      //   servos.setTargetPosition(SERVO_ID_1, restPosition1 + MOVE_AMOUNT, 500);
+      //   delay(10);
+      //   servos.setTargetPosition(SERVO_ID_2, restPosition2 + MOVE_AMOUNT, 500);
+
+      //   motorActuated = true;
+      // }
+
+      if (!motorActuated) {
+        servos.setTargetPosition(SERVO_ID_1, -MOVE_AMOUNT, 500);
+        delay(10);
+        servos.setTargetPosition(SERVO_ID_2, MOVE_AMOUNT, 500);
+        motorActuated = true;
+      }
+
+      status1 = "ACTUATING";
+    } else {
+      status1 = "SLOUCHING";
+
+      if (millis() - lastBlinkTime1 >= 500) {
+        lastBlinkTime1 = millis();
+        ledState1 = !ledState1;
+        digitalWrite(ledPin1, ledState1);
+      }
+    }
+  }
+
+  String statusMsg = "S1: " + status1;
+
+  if (statusMsg != lastStatusMsg) {
+    Serial.print("Sending BLE update: ");
+    Serial.println(statusMsg);
+
+    pDataCharacteristic->setValue(statusMsg.c_str());
+    pDataCharacteristic->notify();
+
+    lastStatusMsg = statusMsg;
+  }
+
+  Serial.println("----------------------------");
+  delay(100);
+}
