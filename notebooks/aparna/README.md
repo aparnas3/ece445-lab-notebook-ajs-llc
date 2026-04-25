@@ -451,3 +451,28 @@ I also ended up placing an order for these PCBs so they should come in soon, we 
 - Finished the 2nd draft of Main PCB
 - Ordered the 2nd draft of Main PCB
 
+# 2026-04-24: FIxed Main PCB and getting motors to move with it (and the front panel)
+
+**Objectives** 
+-
+- Synchronize the movement of both servos to ensure symmetrical pull on the vest.
+- Debug the feedback loop between the stretch sensors and the motor actuation.
+- Fix the Main PCB soldering
+
+
+I ended up fixing the USB receptacle soldering as well as some other small things with the microcontroller since the solder connections were not good. Then we were successfully able to power it on after messing with the boot and EN button controls.
+Main PCB Soldered:
+<img width="725" height="494" alt="image" src="https://github.com/user-attachments/assets/d531df87-0594-4dd6-b2cf-c47c2d05d656" />
+<br>
+<br>
+
+The biggest challenge was ensuring both servos moved the exact same amount at the same time because one lagged or pulled further. We moved away from commanding them individually and switched to a `sync write` approach. By using `servos.setTargetPositions` with an array of IDs and positions, we can send one unified command over the bus so both motors kick in simultaneously.
+
+
+On the software side, we successfully linked the sensor threshold to the motor state. If the slouch persists for more than 15 seconds, the ESP32-C6 now triggers the servos to pull to the correction position (`restPosition + MOVE_AMOUNT`). Once the user straightens up and the sensor value drops below 425, the motors immediately release back to their rest positions. We also got the BLE characteristic working so the phone gets a "S1: ACTUATING" or "S1: GOOD_POSTURE" update the second the state changes.
+
+**Tasks Completed** 
+-
+- Synchronized the movement of both servos to ensure symmetrical pull on the vest.
+- Debugged the feedback loop between the stretch sensors and the motor actuation.
+- Fixed the Main PCB soldering
