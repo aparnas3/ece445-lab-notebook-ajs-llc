@@ -451,7 +451,7 @@ I also ended up placing an order for these PCBs so they should come in soon, we 
 - Finished the 2nd draft of Main PCB
 - Ordered the 2nd draft of Main PCB
 
-# 2026-04-24: FIxed Main PCB and getting motors to move with it (and the front panel)
+# 2026-04-24: Fixed Main PCB and getting motors to move with it (and the front panel)
 
 **Objectives** 
 -
@@ -476,3 +476,28 @@ On the software side, we successfully linked the sensor threshold to the motor s
 - Synchronized the movement of both servos to ensure symmetrical pull on the vest.
 - Debugged the feedback loop between the stretch sensors and the motor actuation.
 - Fixed the Main PCB soldering
+
+# 2026-04-26 - Hardware Integration, Physical Calibration, and Data Smoothing
+
+**Objectives**
+-
+- Attach the Motor and Brain PCBs to the physical vest and calibrate motor placement.
+- Implement a data smoothing algorithm to stabilize sensor readings.
+- Finalize the BLE communication protocol between the ESP32-C6 and the mobile app.
+
+We finally moved the hardware from the bench to the actual vest, and it was a reality check on the physical design. We ran into a mechanical issue where the ribbon kept slipping off the spools, so I did a quick fix by attaching cardboard end-caps to the spools to keep the ribbon tracked during high-torque reels. 
+
+The biggest breakthrough today was fixing the "jittery" posture detection. The raw ADC values from the stretch sensors were hitting too many outliers, which kept tripping the slouch detection or stopping it entirely. I came up with a simple but effective smoothing algorithm. This weighted moving average has made the data significantly more stable, allowing us to identify a true "slouch state" without the motors twitching from noise.
+
+Smoothing algorithm:
+<img width="1040" height="161" alt="image" src="https://github.com/user-attachments/assets/56092bea-adc4-4e17-9f19-be79ecd6650e" />
+
+
+We also dialed in the timing to meet our high-level requirements. I used a stopwatch to calibrate the motor speed so the reel-in takes exactly 10 seconds.
+
+
+**Tasks Completed**
+-
+- Sewed the PCB housings onto the vest and secured the motor mounts.
+- Reinforced the spool flanges with cardboard guides to prevent ribbon derailment.
+- Developed and coded the 15/85 weighted smoothing filter for the stretch sensor input.
