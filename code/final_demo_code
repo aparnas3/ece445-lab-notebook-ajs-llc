@@ -14,13 +14,15 @@
 #define SERVO_ID_1 3
 #define SERVO_ID_2 1
 
-int moveAmount = 8000;
 
 const int sensorPin1 = 0;
 const int ledPin1 = 10;
 
-const int slouchThreshold1 = 425;
+// Configurable values within app
+int moveAmount = 8000;
+int slouchThreshold1 = 425;
 
+// non-configurable declarations
 unsigned long slouchStartTime1 = 0;
 unsigned long lastBlinkTime1 = 0;
 
@@ -85,21 +87,40 @@ class CommandCallbacks : public BLECharacteristicCallbacks {
   if (value.indexOf("SET_MOVE_AMOUNT") >= 0) {
     int amountIndex = value.indexOf("\"amount\":");
 
-  if (amountIndex >= 0) {
-    int start = amountIndex + 9;
-    int end = value.indexOf("}", start);
+    if (amountIndex >= 0) {
+      int start = amountIndex + 9;
+      int end = value.indexOf("}", start);
 
-    String amountString = value.substring(start, end);
-    int newAmount = amountString.toInt();
+      String amountString = value.substring(start, end);
+      int newAmount = amountString.toInt();
 
-    if (newAmount >= 0 && newAmount <= 12000) {
-      moveAmount = newAmount;
+      if (newAmount >= 0 && newAmount <= 12000) {
+        moveAmount = newAmount;
 
-      Serial.print("Move amount changed to: ");
-      Serial.println(moveAmount);
+        Serial.print("Move amount changed to: ");
+        Serial.println(moveAmount);
+      }
     }
-  }
 }
+
+  if (value.indexOf("SET_SLOUCH_THRESHOLD") >= 0) {
+        int thresholdIndex = value.indexOf("\"threshold\":");
+
+        if (thresholdIndex >= 0) {
+          int start = thresholdIndex + 12;
+          int end = value.indexOf("}", start);
+
+          String thresholdString = value.substring(start, end);
+          int newThreshold = thresholdString.toInt();
+
+          if (newThreshold >= 0 && newThreshold <= 4095) {
+            slouchThreshold1 = newThreshold;
+
+            Serial.print("Slouch threshold changed to: ");
+            Serial.println(slouchThreshold1);
+          }
+        }
+      }
   }
 };
 
@@ -145,8 +166,8 @@ void setup() {
   pDataCharacteristic->addDescriptor(new BLE2902());
 
   pDataCharacteristic->setValue(
-  "{\"s1\":0,\"posture\":\"GOOD_POSTURE\",\"mode\":\"ACTIVE\",\"moveAmount\":8000}"
-);
+    "{\"s1\":0,\"posture\":\"GOOD_POSTURE\",\"mode\":\"ACTIVE\",\"moveAmount\":8000,\"slouchThreshold1\":425}"
+  );
 
   pService->start();
 
@@ -213,8 +234,8 @@ void loop() {
       }
 
       status1 = "BRACED";
-    } else if (slouchElapsed1 >= 15) {
-      Serial.println("ACTIVE mode: slouch over 15s, motors actuating");
+    } else if (slouchElapsed1 >= 30) {
+      Serial.println("ACTIVE mode: slouch over 30s, motors actuating");
 
       ledState1 = true;
       digitalWrite(ledPin1, HIGH);
@@ -237,9 +258,10 @@ void loop() {
 
   // send status message
   String statusMsg = "{\"s1\":" + String(value1) +
-                   ",\"posture\":\"" + status1 +
-                   "\",\"mode\":\"" + currentMode +
-                   "\",\"moveAmount\":" + String(moveAmount) + "}";
+                     ",\"posture\":\"" + status1 +
+                     "\",\"mode\":\"" + currentMode +
+                     "\",\"moveAmount\":" + String(moveAmount) +
+                     ",\"slouchThreshold1\":" + String(slouchThreshold1) + "}";
 
   if (statusMsg != lastStatusMsg) {
     Serial.print("Sending BLE update: ");
