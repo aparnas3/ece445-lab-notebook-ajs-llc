@@ -349,16 +349,63 @@
 **Record:**
 * Thinking I should make something to toggle bluetooth?
     - That way I can test the app on my computer (UI stuff mostly) without Aparna's phone
+* Decided to make an app interface that doesnt use bluetooth for initial UI testing
+* Startup of app on aparna's phone: npx expo start on computer
+  
+**Date:** 4/16/2026
+
+**Meeting Objectives:**
+1. Testing PCB with motor controllers
+
+**Record:**
+* When we plugged in 1 motor, the code was simple and worked very well and consistently on the breadboard setup
+* Had issues when using two motors- 1 moves and 1 does not
+* First fix was to change the servo IDs-> since both were 1 before we are now using 1 and 3 for the IDs
+* Still not moving with arduino but moving with Feetech FDServo interface using sync write command
+
+
+**Date:** 4/17/2026
+
+**Meeting Objectives:**
+1. Continuing testing PCB with motor controllers
+2. Fixing 2 servo issues
+
+**Record:**
+* Before we were trying to write to the motors in the same command using an array:
+  <img width="628" height="149" alt="image" src="https://github.com/user-attachments/assets/6101b65e-4a31-4d27-86d3-e2102804fee8" />
+* We now added a delay and write to them separately since the lines seemed to have been getting overwritten for one servo when trying to get both to move:
+  <img width="646" height="111" alt="image" src="https://github.com/user-attachments/assets/d6c49dc1-1602-4e93-a0dd-4ee1200efb83" />
+* Also, to reel in the vest properly, the motors would have to move opposite ways
+* We set the servos in mode 3: 360 mode so they will move past the 4096 value, as we need to be able to fully reel in the straps
+
+
+  
+**Date:** 4/18/2026
+
+**Meeting Objectives:**
+1. Physical vest assembly
+
+**Record:**
+* Need to test the 2 servo reel-in on a physical vest now-> not on a human yet though while we are tweaking algo; just to see if the straps can reel in
+* Officially decided on ribbon for straps; has enough give to be safe but also reels in very well and fixes posture
+    - Elastic straps give too much and need to be reeled in and stretched way too far to fix posture
+* Had to take in the og vest because it needs to be tighter to actually reel in; we have pretty much settled on Sophia being the model for it since the vest fits her well
+* Holding servos is an issue-> how do we keep them exposed while still having them be secure?
 
   
 
-**Date:** 4/23/2026
+**Date:** 4/19/2026
 
 **Meeting Objectives:**
-* Tweaking Code to detect diff slouches
+1. Physical vest assembly
 
 **Record:**
-* Idea is use 2 stretch sensors and actuate if either one stretches so we can detect sideways slouches as well
-* Maybe cross in the back of the vest to detect this?
+* Decided on velcro to hold servos in place
+* Velcro is the electrical cabling velcro-> extremely secure and pretty difficult to pull apart
+* Servos seem pretty secure in the velcro and 
+
+* SETBACK: Tried testing this setup with battery and blew out both of our servo motors
+    - Now we placed an order for a new controller and 2 new servos-> 
+
 
 
