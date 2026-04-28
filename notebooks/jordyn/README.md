@@ -398,14 +398,103 @@
 
 **Meeting Objectives:**
 1. Physical vest assembly
+2. App
 
 **Record:**
 * Decided on velcro to hold servos in place
 * Velcro is the electrical cabling velcro-> extremely secure and pretty difficult to pull apart
-* Servos seem pretty secure in the velcro and 
+* Servos seem pretty secure in the velcro and now its time for spool drafting
+* Attached ribbon to be across back since that seems like the best place
+  - posture is best corrected from the upper back
+  - slouch is best detected near the belt area (mid - lower back)
+* Finished BLE portion of app -> now need to test this on Aparna's Samsung device when she is back
 
+
+**Date:** 4/20/2026
+
+**Meeting Objectives:**
+1. Finish physical vest assembly (spools)
+2. Test motors on vest (not on human yet!!)
+
+**Record:**
+* Aparna is sick and unable to do the CAD, so we found it easier to machine the spools
+    - Option 1: PVC spooling with removable ends **CHOSE THIS OPTION**
+    - Option 2: Actual spool with dowel rod through middle for support
+    - Option 3: All-plastic spool
+  * We found that the PVC spooling was just light enough for the motors to handle while being the most development-friendly since we can remove the spool from the end to store the motors
+* The PVC spool had the best results when testing on bench top
+  - ribbon is reeled in more cleanly and the ends stop the cabling from getting too tangled
+  - Ribbon easily slips off of the spool when unraveling, which is perfect!
+* Code:
+    - added an "unravel" state where after motor actuation, the servo motors will reverse direction when good posture is detected
+    - If good posture is detected in the middle of the servos reeling in the cable, the motors should unwind since the user has recognized their own posture change
 * SETBACK: Tried testing this setup with battery and blew out both of our servo motors
-    - Now we placed an order for a new controller and 2 new servos-> 
+    - Now we placed an order for a new controller and 2 new servos-> coming soon
+    - Have to use 1 servo and breadboard for mock demo since we are still soldering PCBs
+    - Upon further inspection we think that out battery may have been delivering w=too much current to the servos, causing them to stall and for the coils to heat up way too much, as the motors were extremely hot to the touch
+    - The controller was actually unharmed, and we can still use it in testing
+ 
+**Date:** 4/22/2026
 
+**Meeting Objectives:**
+1. Testing Microcontroller PCB with the controller (and 1 motor for now)
+2. Work on app
+
+**Record:**
+* We found that we had to resolder some parts of the Microcontroller PCB, as there was not enough on the pad.
+* App developments:
+    - app is pretty much fine and connects to the micro via BLE after some debugging
+    - added a "scan for APCV" button where we can scan for the device, and once it is found, there is a "connect to APCV" button which will allow us to connect to it
+    - now adding features and making sure we can send packets
+    - Added "Live Data" panel which shows: Sensor 1 value, Posture state (goof, slouching, actuating), Move amount (which is set in code->essentially the calibrated data), and slouch threshold (set in code to decide good v bad posture)
+    - App seems to be stuck on one screen -> I'm thinking this may be  a code issue but it could be an issue with the device?
+ 
+**Date:** 4/23/2026
+
+**Meeting Objectives:**
+1. Working on app features
+
+**Record:**
+* Fixed scrolling issue -> just forgot to add the ScrollView to the view
+* Added a way to configure motor target value (aka the degree to which it turns to correct posture)
+    - In future applications I am thinking that this could be turned into a calibration feature on the vest if it were to be made in multiple different sizes
+    - For our vest we can use this so we dont have to keep uploading code to the device during development
+ 
+
+**Date:** 4/24/2026
+
+**Meeting Objectives:**
+1. Brace mode addition
+2. Refine Control Code
+
+**Record:**
+* Added Brace mode: vest should basically immediately reel in after this is set
+    - Moves right to the target position
+<img width="759" height="623" alt="image" src="https://github.com/user-attachments/assets/e2b92ac5-6dcc-41b4-bf05-8a4c70d7defa" />
+* Toggles on app as well -> ACTIVE or BRACE will show
+    - have to send this data packet to the app as well so it changes the command
+* Tested this on benchtop and it seems to work!
+
+
+**Date:** 4/24/2026
+
+**Meeting Objectives:**
+1. Testing Power and Actuation PCB
+
+**Record:**
+* Voltage reg works -> Can power micro with this
+* Kill switch does not work on hardware
+    - Thinking this may be a soldering issue since the board is very burnt
+    - Workaround: Take out a stretch sensor and do it in software instead
+    - Since we only use 1 stretch sensor down the back but we had room for two, we have an extra ground terminal to ground the button
+    - We have an extra pin to wire for the ESP32 that we are now defining as kill -> we just wont use this for a hardware kill
+    - We believe it is more important to have a kill button for safety reasons than to try to integrate that second stretch sensor because safety is much more improtatnt than being able to read sideways slouches -> front slouching is more common anyway and the best readings come from the mid back.
+    - Using the power kill gpio pin for this now
+  * Software KILL behavior:
+      - if motors are actuating or are fully at target angle, unwind ribbon and stop until button is pressed again
+      - if motors are at og loose position, do not actuate at all, stop reading sensors, and allow user to take vest off safely until button is pressed again
+      - Essentially the button stops the program until the user presses the button again ->this can be seen in arduino ide
+      - Adding to app as well!
+  * soldered a capacitor between 3v3 and gnd near esp32 to prevent brownout issue that we have been having as well
 
 
