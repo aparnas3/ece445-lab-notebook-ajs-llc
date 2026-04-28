@@ -1,3 +1,6 @@
+// 7.1V required
+// kill gpio = IO7
+
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -8,21 +11,34 @@
 #define COMMAND_CHAR_UUID "12345678-1234-1234-1234-1234567890ac"
 #define DATA_CHAR_UUID    "12345678-1234-1234-1234-1234567890ad"
 
-#define RXD 5
-#define TXD 4
+#define RXD 17
+#define TXD 16
 
 #define SERVO_ID_1 3
 #define SERVO_ID_2 1
 
+#define DIR_PIN 23
+
+#define KILL_PIN 7
 
 const int sensorPin1 = 0;
-const int ledPin1 = 10;
+const int ledPin1 = 18;
 
 // Configurable values within app
-int moveAmount = 8000;
-int slouchThreshold1 = 425;
+int moveAmount = 2800; //best calibration for sophia
+int slouchThreshold1 = 750;
 
-// non-configurable declarations
+// Sensor smoothing + anti-false-reset
+float smoothedValue1 = 0;
+
+//slouch smoothing variables
+const float SMOOTHING_ALPHA = 0.15;  // smaller = smoother
+const int SLOUCH_MARGIN = 0;
+const int GOOD_MARGIN = 50;
+unsigned long lastSlouchSeenTime1 = 0;
+const unsigned long SLOUCH_GRACE_MS = 1500;
+
+// Nonconfigurable declarations
 unsigned long slouchStartTime1 = 0;
 unsigned long lastBlinkTime1 = 0;
 
@@ -30,34 +46,148 @@ bool slouching1 = false;
 bool ledState1 = false;
 bool motorActuated = false;
 
-String currentMode = "ACTIVE"; // start off in active mode
+String currentMode = "ACTIVE";
 
-BLECharacteristic *pCommandCharacteristic; // phone->ESP32
-BLECharacteristic *pDataCharacteristic; // ESP32->phone
+// Kill button variables
+bool killMode = false;
+bool lastKillButtonReading = HIGH;
+bool stableKillButtonState = HIGH;
+unsigned long lastKillDebounceTime = 0;
+const unsigned long killDebounceDelay = 50;
+
+// NEW
+
+unsigned long goodPostureStartTime1 = 0;
+const unsigned long GOOD_POSTURE_RELEASE_MS = 10000;
+
+BLECharacteristic *pCommandCharacteristic;
+BLECharacteristic *pDataCharacteristic;
 
 String lastStatusMsg = "";
 
-STSServoDriver servos; 
+STSServoDriver servos;
 
-// Brace mode movement: Move to predefined "good posture" position
+// Moves motors to brace/tighten position
 void moveToBracePosition() {
+  if (killMode) {
+    Serial.println("Kill mode active: ignoring moveToBracePosition()");
+    return;
+  }
+
   Serial.println("Moving motors to BRACE position");
-  servos.setTargetPosition(SERVO_ID_1, -moveAmount, 500);
+
+  servos.setTargetPosition(SERVO_ID_1, moveAmount, 300);
   delay(10);
-  servos.setTargetPosition(SERVO_ID_2, moveAmount, 500);
+  servos.setTargetPosition(SERVO_ID_2, -moveAmount, 300);
+
   motorActuated = true;
 }
 
-// Releases motors from the brace mode -> sends them back to unraveled position
+// Moves motors to release/unravel position
 void releaseBracePosition() {
   Serial.println("Releasing motors from BRACE position");
-  servos.setTargetPosition(SERVO_ID_1, moveAmount, 500);
+
+  servos.setTargetPosition(SERVO_ID_1, -moveAmount, 300);
   delay(10);
-  servos.setTargetPosition(SERVO_ID_2, -moveAmount, 500);
+  servos.setTargetPosition(SERVO_ID_2, moveAmount, 300);
+
   motorActuated = false;
 }
 
-// handles changing of modes in BLE
+String makeStatusJson(String postureStatus) {
+  // int value1 = analogRead(sensorPin1);
+  int value1 = (int)smoothedValue1;
+
+  String statusMsg = "{\"s1\":" + String(value1) +
+                     ",\"posture\":\"" + postureStatus +
+                     "\",\"mode\":\"" + currentMode +
+                     "\",\"kill\":" + String(killMode ? "true" : "false") +
+                     ",\"moveAmount\":" + String(moveAmount) +
+                     ",\"slouchThreshold1\":" + String(slouchThreshold1) +
+                     ",\"motorActuated\":" + String(motorActuated ? "true" : "false") +
+                     "}";
+
+  return statusMsg;
+}
+
+void sendStatus(String postureStatus) {
+  String statusMsg = makeStatusJson(postureStatus);
+
+  if (statusMsg != lastStatusMsg) {
+    Serial.print("Sending BLE update: ");
+    Serial.println(statusMsg);
+
+    pDataCharacteristic->setValue(statusMsg.c_str());
+    pDataCharacteristic->notify();
+
+    lastStatusMsg = statusMsg;
+  }
+}
+
+void checkKillButton() {
+  bool reading = digitalRead(KILL_PIN);
+
+  if (reading != lastKillButtonReading) {
+    lastKillDebounceTime = millis();
+  }
+
+  if ((millis() - lastKillDebounceTime) > killDebounceDelay) {
+    if (reading != stableKillButtonState) {
+      stableKillButtonState = reading;
+
+      // Button is active-low because we use INPUT_PULLUP
+      if (stableKillButtonState == LOW) {
+        killMode = !killMode;
+
+        if (killMode) {
+          Serial.println("KILL BUTTON PRESSED");
+
+          if (motorActuated) {
+            Serial.println("Servos are reeled in. Unraveling before KILL mode...");
+
+            currentMode = "RELEASING";
+            sendStatus("RELEASING");
+
+            releaseBracePosition();
+
+            // Give motors time to physically unravel
+            delay(1500);
+          } else {
+            Serial.println("Servos are already neutral. No unravel needed.");
+          }
+
+          Serial.println("KILL MODE ENABLED: servo commands now ignored");
+
+          currentMode = "KILLED";
+          motorActuated = false;
+          slouching1 = false;
+          slouchStartTime1 = 0;
+          ledState1 = false;
+          digitalWrite(ledPin1, LOW);
+
+          sendStatus("KILLED");
+
+        } else {
+          Serial.println("KILL MODE DISABLED");
+
+          killMode = false;
+          currentMode = "ACTIVE";
+          motorActuated = false;
+          slouching1 = false;
+          slouchStartTime1 = 0;
+          ledState1 = false;
+          digitalWrite(ledPin1, LOW);
+
+          sendStatus("GOOD_POSTURE");
+        }
+      }
+    }
+  }
+
+  lastKillButtonReading = reading;
+}
+
+// Handles changing of modes in BLE
 class CommandCallbacks : public BLECharacteristicCallbacks {
   void onWrite(BLECharacteristic *pCharacteristic) {
     String value = pCharacteristic->getValue();
@@ -65,73 +195,98 @@ class CommandCallbacks : public BLECharacteristicCallbacks {
     Serial.print("Command received: ");
     Serial.println(value);
 
-    if (value.indexOf("BRACE") >= 0) {
-      currentMode = "BRACE";
-      Serial.println("Mode changed to BRACE");
+    if (value.indexOf("PING") >= 0) {
+      sendStatus("PING_OK");
+      return;
+    }
 
-      if (!motorActuated) {
-        moveToBracePosition();
+    if (killMode) {
+      Serial.println("Kill mode active: ignoring BLE motor mode commands");
+    } else {
+      if (value.indexOf("BRACE") >= 0) {
+        currentMode = "BRACE";
+        Serial.println("Mode changed to BRACE");
+
+        if (!motorActuated) {
+          moveToBracePosition();
+        }
+
+        sendStatus("BRACED");
+      }
+
+      if (value.indexOf("ACTIVE") >= 0) {
+        currentMode = "ACTIVE";
+        Serial.println("Mode changed to ACTIVE");
+
+        if (motorActuated) {
+          releaseBracePosition();
+        }
+
+        sendStatus("GOOD_POSTURE");
       }
     }
 
-    if (value.indexOf("ACTIVE") >= 0) {
-      currentMode = "ACTIVE";
-      Serial.println("Mode changed to ACTIVE");
+    // Set move value from app
+    if (value.indexOf("SET_MOVE_AMOUNT") >= 0) {
+      int amountIndex = value.indexOf("\"amount\":");
 
-      if (motorActuated) {
-        releaseBracePosition();
-      }
-    }
+      if (amountIndex >= 0) {
+        int start = amountIndex + 9;
+        int end = value.indexOf("}", start);
 
-  // Set move value from app
-  if (value.indexOf("SET_MOVE_AMOUNT") >= 0) {
-    int amountIndex = value.indexOf("\"amount\":");
+        String amountString = value.substring(start, end);
+        int newAmount = amountString.toInt();
 
-    if (amountIndex >= 0) {
-      int start = amountIndex + 9;
-      int end = value.indexOf("}", start);
+        if (newAmount >= 0 && newAmount <= 12000) {
+          moveAmount = newAmount;
 
-      String amountString = value.substring(start, end);
-      int newAmount = amountString.toInt();
+          Serial.print("Move amount changed to: ");
+          Serial.println(moveAmount);
 
-      if (newAmount >= 0 && newAmount <= 12000) {
-        moveAmount = newAmount;
-
-        Serial.print("Move amount changed to: ");
-        Serial.println(moveAmount);
-      }
-    }
-}
-
-  if (value.indexOf("SET_SLOUCH_THRESHOLD") >= 0) {
-        int thresholdIndex = value.indexOf("\"threshold\":");
-
-        if (thresholdIndex >= 0) {
-          int start = thresholdIndex + 12;
-          int end = value.indexOf("}", start);
-
-          String thresholdString = value.substring(start, end);
-          int newThreshold = thresholdString.toInt();
-
-          if (newThreshold >= 0 && newThreshold <= 4095) {
-            slouchThreshold1 = newThreshold;
-
-            Serial.print("Slouch threshold changed to: ");
-            Serial.println(slouchThreshold1);
-          }
+          sendStatus("MOVE_AMOUNT_UPDATED");
         }
       }
+    }
+
+    // Set slouch threshold from app
+    if (value.indexOf("SET_SLOUCH_THRESHOLD") >= 0) {
+      int thresholdIndex = value.indexOf("\"threshold\":");
+
+      if (thresholdIndex >= 0) {
+        int start = thresholdIndex + 12;
+        int end = value.indexOf("}", start);
+
+        String thresholdString = value.substring(start, end);
+        int newThreshold = thresholdString.toInt();
+
+        if (newThreshold >= 0 && newThreshold <= 4095) {
+          slouchThreshold1 = newThreshold;
+
+          Serial.print("Slouch threshold changed to: ");
+          Serial.println(slouchThreshold1);
+
+          sendStatus("THRESHOLD_UPDATED");
+        }
+      }
+    }
   }
 };
 
 void setup() {
   Serial.begin(115200);
 
+  Serial1.setPins(RXD, TXD, -1, DIR_PIN);
+  Serial1.begin(1000000, SERIAL_8N1);
+  Serial1.setMode(UART_MODE_RS485_HALF_DUPLEX);
+
   pinMode(ledPin1, OUTPUT);
   digitalWrite(ledPin1, LOW);
 
-  Serial1.begin(1000000, SERIAL_8N1, RXD, TXD);
+  pinMode(KILL_PIN, INPUT_PULLUP);
+
   delay(1000);
+
+  smoothedValue1 = analogRead(sensorPin1); //added
 
   if (servos.init(&Serial1)) {
     Serial.println("Servo ready");
@@ -140,7 +295,6 @@ void setup() {
   }
 
   servos.setMode(0xFE, STSMode::STEP);
-
 
   // BLE setup
   Serial.println("Starting BLE work!");
@@ -166,7 +320,7 @@ void setup() {
   pDataCharacteristic->addDescriptor(new BLE2902());
 
   pDataCharacteristic->setValue(
-    "{\"s1\":0,\"posture\":\"GOOD_POSTURE\",\"mode\":\"ACTIVE\",\"moveAmount\":8000,\"slouchThreshold1\":425}"
+    "{\"s1\":0,\"posture\":\"GOOD_POSTURE\",\"mode\":\"ACTIVE\",\"kill\":false,\"moveAmount\":8000,\"slouchThreshold1\":750,\"motorActuated\":false}"
   );
 
   pService->start();
@@ -183,7 +337,21 @@ void setup() {
 }
 
 void loop() {
-  int value1 = analogRead(sensorPin1); // read sensor value
+  checkKillButton();
+
+  if (killMode) {
+    sendStatus("KILLED");
+    delay(100);
+    return;
+  }
+
+  // int value1 = analogRead(sensorPin1);
+  // float voltage1 = value1 * 3.3 / 4095.0;
+
+  int rawValue1 = analogRead(sensorPin1);
+  smoothedValue1 = (SMOOTHING_ALPHA * rawValue1) +
+                  ((1.0 - SMOOTHING_ALPHA) * smoothedValue1);
+  int value1 = (int)smoothedValue1;
   float voltage1 = value1 * 3.3 / 4095.0;
 
   Serial.print("Sensor 1 Raw: ");
@@ -193,8 +361,19 @@ void loop() {
 
   String status1;
 
-  // Good Posture: Value is below set threshold
-  if (value1 < slouchThreshold1) {
+  //added
+  bool definitelySlouching = value1 > slouchThreshold1 + SLOUCH_MARGIN;
+  bool definitelyGood = value1 < slouchThreshold1 - GOOD_MARGIN;
+
+  if (definitelySlouching) {
+    lastSlouchSeenTime1 = millis();
+  }
+
+  bool stillCountingSlouch = (millis() - lastSlouchSeenTime1) < SLOUCH_GRACE_MS;
+
+  // Good posture: value is below threshold
+  // if (value1 < slouchThreshold1) {
+  if (definitelyGood && !stillCountingSlouch) {
     Serial.println("Sensor 1: Good Posture");
 
     digitalWrite(ledPin1, LOW);
@@ -204,7 +383,17 @@ void loop() {
     slouchStartTime1 = 0;
 
     if (motorActuated && currentMode == "ACTIVE") {
-      releaseBracePosition();
+      //NEW
+      if (goodPostureStartTime1 == 0) {
+        goodPostureStartTime1 = millis();
+      }
+
+      if (millis() - goodPostureStartTime1 >= GOOD_POSTURE_RELEASE_MS) {
+        releaseBracePosition();
+        goodPostureStartTime1 = 0;
+      }
+      
+      //releaseBracePosition();
     }
 
     if (currentMode == "BRACE") {
@@ -212,8 +401,12 @@ void loop() {
     } else {
       status1 = "GOOD_POSTURE";
     }
-  } else { // else Slouching: Value < Threshold
+
+  } else {
     Serial.println("Sensor 1: Slouch Detected!");
+
+    //NEW
+    goodPostureStartTime1 = 0;
 
     if (!slouching1) {
       slouching1 = true;
@@ -234,6 +427,7 @@ void loop() {
       }
 
       status1 = "BRACED";
+
     } else if (slouchElapsed1 >= 30) {
       Serial.println("ACTIVE mode: slouch over 30s, motors actuating");
 
@@ -245,6 +439,7 @@ void loop() {
       }
 
       status1 = "ACTUATING";
+
     } else {
       status1 = "SLOUCHING";
 
@@ -256,15 +451,17 @@ void loop() {
     }
   }
 
-  // send status message
   String statusMsg = "{\"s1\":" + String(value1) +
                      ",\"posture\":\"" + status1 +
                      "\",\"mode\":\"" + currentMode +
-                     "\",\"moveAmount\":" + String(moveAmount) +
-                     ",\"slouchThreshold1\":" + String(slouchThreshold1) + "}";
+                     "\",\"kill\":" + String(killMode ? "true" : "false") +
+                     ",\"moveAmount\":" + String(moveAmount) +
+                     ",\"slouchThreshold1\":" + String(slouchThreshold1) +
+                     ",\"motorActuated\":" + String(motorActuated ? "true" : "false") +
+                     "}";
 
   if (statusMsg != lastStatusMsg) {
-    Serial.print("Sending BLE update: ");
+    // Serial.print("Sending BLE update: ");
     Serial.println(statusMsg);
 
     pDataCharacteristic->setValue(statusMsg.c_str());
