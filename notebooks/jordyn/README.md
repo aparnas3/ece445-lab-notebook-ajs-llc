@@ -34,6 +34,11 @@
  
 * Team meeting
     - Finished up high-level requirements and first draft of problem/solution
+    - High Level Reqs:
+        1. The system must provide active postural restraining by applying corrective tension for 10 seconds until the user returns to a calibrated upright position, where the tension will be released after 10 seconds of consistent proper posture.
+        2. The system must be able to distinguish between poor posture and natural movement by utilizing a time delay of 30 seconds after sensing a slouch event so that it is only triggered by a prolonged period of slouching.
+        3. The vest must support daily tracking of user behavior with a wireless interface and a mobile app which will be calibrated for the user and allow them to visualize their postural habits and to adjust their preferred mode (brace or active).
+
     - created a rough draft diagram
 ![apcv_diagram](https://github.com/user-attachments/assets/c71aadd4-90c3-4ecc-860f-c7440dbd53e4)
 
@@ -62,6 +67,14 @@
 * ECE:
     - ESP32 microcontroller has bluetooth capabilities which would be good for what we wanna do
 
+**Date:** 2/15/2026
+**Meeting Objectives:**
+* Quick notebook updates
+* subsystem clarification/block diagram
+
+**Record:**
+- Block Diagram (made by aparna)
+<img width="974" height="791" alt="image" src="https://github.com/user-attachments/assets/759cac6e-05a1-4604-a4bf-8f0e637ebc89" />
 
 **Date:** 2/17/2026
 
@@ -86,7 +99,7 @@
     - CORNERS: avoid sharp corners for traces->use 45-degree bends or curved traces
     - GROUND PLANE: avoid splitting ground plane under RF traces
       
-* Websites to refer back to:
+* Website to refer back to:
     - https://www.allpcb.com/allelectrohub/beginners-guide-to-rf-pcb-design-from-theory-to-practice
  
 **Date:** 2/18/2026
@@ -114,7 +127,7 @@
 **Date:** 2/19/2026
 
 **Meeting Objectives:**
-* Lay out parts in KiCad and connections tomorrow
+* Lay out parts in KiCad
 
 **Record:**
 * Servo documentation (more detailed): file:///C:/Users/jordy/Downloads/Communication_Protocol_Manual.pdf
@@ -155,15 +168,26 @@
 **Record:**
 * instead of voltage regulator: 3V-17V 1A Step-Down Converters with DCS-Control
     - why: more reliable
-* plan is to demo using LED to show when servo should be moving
+    - better for wearable device that is battery powered since it produces less heat
+    - more efficient than a normal voltage regulator
+* plan is to demo using LED to show when servo should be moving since we do not have them yet
     - demoing sensing subsystem
- 
+    - GOOD POSTURE: Under threshold, LED off
+    - SLOUCHING: Over threshold, LED blinks, 30s timer counts up
+    - ACTUATE: motors move to target angle
+    - attach alligator clips to ends of stretch sensor-> acts as a resistor
+        - more stretch: higher ADC values (should mean slouching)
+        - less stretch: lower ADC values (should mean good posture)
+    - use voltage divider circuit that aparna found online to do this:
+      <img width="666" height="435" alt="image" src="https://github.com/user-attachments/assets/941131ba-42dc-4d47-a3b7-16087e3077f3" />
+    - Example printouts of states in Arduino IDE (threshold=425 in this case)
+      <img width="283" height="182" alt="image" src="https://github.com/user-attachments/assets/3866a0e1-44cf-492c-b4ff-90c178bb5036" />
 
- 
+
 **Date:** 3/23/2026
 
 **Meeting Objectives:**
-* Updates on what has been done in the past weeks
+* Updates for notebook purposes on what has been done in the past weeks
 * plans
 * Notes from TA meeting
 
@@ -183,7 +207,7 @@
     - Can not connect grounds bc we can connect them to ground plane under pcb
     - Use vias to make electrical connections through the front to the back of the board if routes are crossing
     - Use 1 layer for horizontal connections; Use 2nd layer for vertical
-    - Schematic:
+    - Schematic (actuation and power routed by me)
       <img width="1316" height="794" alt="image" src="https://github.com/user-attachments/assets/efb92b54-b1e2-4a67-bb55-fb77c58103b3" />
     - Current layout (before routing):
       <img width="776" height="720" alt="image" src="https://github.com/user-attachments/assets/b386e0ac-ee08-4c29-ae0a-0a11ff9b9086" />
@@ -200,16 +224,28 @@
 **Record:**
 * PCB ordered to Hub
 * Starting to look at some ideas for 3D printed spools
+* **ALL schematics for PCBs( main and front from other group members, but just to keep a record here):**
+    - Main (microcontroller, connections to servo ttl conversion for A&P, etc):
+      <img width="934" height="614" alt="image" src="https://github.com/user-attachments/assets/869d90ba-553e-49a0-9841-a50a4fc3d46a" />
+
+    - Front panel (buttons for kill, EN, and BOOT):
+  <img width="692" height="496" alt="image" src="https://github.com/user-attachments/assets/2e493a50-ae8b-4832-b844-db7c0025485a" />
+  
+    - Actuation and Power (voltage conversion, battery, motor powering, TTL conversion, etc):
+<img width="974" height="493" alt="image" src="https://github.com/user-attachments/assets/0fd763ac-2b33-4728-873e-77685325d137" />
+      
+
 
       
 **Date:** 3/27/2026
 
 **Meeting Objectives:**
 * Meeting about next steps in breadboarding- planning to be able to demo all subsystems except the power (since we do not have regulators for breadboard)
-* Meeting with seamstress this week to plan to sew our physical vest
+* Meeting with seamstress this week over zoom to plan to sew our physical vest and get advice on tailoring
 * This week's plan:
     - Individual reports - DUE WED
     - Keep working on breadboarding subsystems -DEMO NEXT WEEK
+    - sew our base vest
 
 **Record:**
 * Updates:
@@ -244,13 +280,39 @@
 
 **Meeting Objectives:**
 * Figuring out wireless
+* Figuring out how to do servo control with our control code and not FTServo
 
 **Record:**
 * for the motors we will be using this library's code: https://github.com/matthieuvigne/STS_servos/blob/main/src/STSServoDriver.cpp 
   <img width="1104" height="767" alt="image" src="https://github.com/user-attachments/assets/20406ea5-43d7-4194-a355-d2204fe9a11f" />
-  
+* Wireless: starting out with nRF connect
+* ESP32 has library in arduino IDE for BLE support- we are using the BLE service template to support BLE
+* Just wanna do a proof of concept- can BLE work before we try our own app?
+* sent message "Hello World", now we want to try live updating using Notify
+* Works! nRF output:
+  <img width="373" height="810" alt="image" src="https://github.com/user-attachments/assets/e4d18475-cd1b-4d5d-bdf0-1e08700fad45" />
 
 
+**Date:** 4/4/2026
+
+**Meeting Objectives:**
+* PCB orders are in
+* Planning
+
+**Record:**
+* Physical PCBs came in
+* PCB routing was done as follows (done when we ordered, but images here):
+    - Actuation and Power:
+      <img width="999" height="903" alt="image" src="https://github.com/user-attachments/assets/bf5d06ff-0356-4f39-aec9-545cbd22bcce" />
+
+    - Main:
+      <img width="974" height="569" alt="image" src="https://github.com/user-attachments/assets/de5656a9-120a-4302-bbd5-c8c6a5f83f12" />
+
+    - Front Panel:
+      <img width="901" height="792" alt="image" src="https://github.com/user-attachments/assets/4f3bc180-718a-41a5-9e60-6860f772761d" />
+
+ 
+      
 
 **Date:** 4/6/2026
 
@@ -278,8 +340,6 @@
 * we found that attaching the ribbon to the front of the vest will be best
 * crossed the ribbon in the back- did testing by pullung and it seems to correct posture very well!
 * next step is to get the spools done and start doing some calculations with how much the motor should spin
-* FRONT: **
-* BACK: **
   
 
 
@@ -308,6 +368,19 @@
     - installed Node.js, had VSCode, had Git
 * Issues/Reworking
     - making an Android-only app bc we do not want to pay for Apple developer account; Android makes this easier
+* Research/info:
+    - Service UUID: Main BLE service we will use
+    - Command Characteristic: Receives app commands
+    - Data Characteristic: Sends posture/ status data
+* BLE workflow:
+    1. ESP32 advertises as APCV
+    2. Scan/Connect in app
+    3. Phone subscribes to BLE service UUID
+    4. Phone subscribes to posture status Characteristic UUID
+    5. ESP32 uses BLE Notify for updating
+    6. App updates with status
+
+
 
 **Date:** 4/13/2026
 
@@ -324,8 +397,6 @@
 * Link to download app on Android: https://expo.dev/accounts/jordynandrews/projects/apcv-app/builds/6d55fa9b-23c0-4794-a790-f7da39d999aa
 * QR code to download app:
   <img width="1443" height="775" alt="image" src="https://github.com/user-attachments/assets/be9171c8-97bb-40bb-a953-33cfdd85e570" />
-
-
 
 
 **Date:** 4/14/2026
@@ -459,13 +530,20 @@
 * Added a way to configure motor target value (aka the degree to which it turns to correct posture)
     - In future applications I am thinking that this could be turned into a calibration feature on the vest if it were to be made in multiple different sizes
     - For our vest we can use this so we dont have to keep uploading code to the device during development
- 
+    - App interface reference pics:
+      <img width="455" height="924" alt="image" src="https://github.com/user-attachments/assets/d820c0f9-b894-420f-a41e-d3923af042ad" />
+    - controls in app:
+      <img width="483" height="324" alt="image" src="https://github.com/user-attachments/assets/6da9f3ae-e5c4-4500-bae8-e261221a6a70" />
+    - KILL switch active:
+      <img width="483" height="707" alt="image" src="https://github.com/user-attachments/assets/484664ba-f362-4936-84f1-2ab1764156bc" />
+
 
 **Date:** 4/24/2026
 
 **Meeting Objectives:**
 1. Brace mode addition
 2. Refine Control Code
+3. Tested Main PCB with Front Panel PCB
 
 **Record:**
 * Added Brace mode: vest should basically immediately reel in after this is set
@@ -474,15 +552,20 @@
 * Toggles on app as well -> ACTIVE or BRACE will show
     - have to send this data packet to the app as well so it changes the command
 * Tested this on benchtop and it seems to work!
+* PCB testing was successful, and the front and main can be integrated together
+    - Soldered Main PCB image:
+      <img width="725" height="494" alt="image" src="https://github.com/user-attachments/assets/f0047bf6-3b9e-4d53-b05c-93b3b9dcd23c" />      
 
-
-**Date:** 4/24/2026
+**Date:** 4/25/2026
 
 **Meeting Objectives:**
 1. Testing Power and Actuation PCB
 
 **Record:**
+* Final soldered PCB (without fuse in holder):
+  <img width="751" height="695" alt="image" src="https://github.com/user-attachments/assets/e11ecc5d-88f9-4e3e-884a-45491393ae65" />
 * Voltage reg works -> Can power micro with this
+* Added the unspooling of motors after bring reeled in or if user goes back to good posture in the middle of actuation to release straps to a loose state
 * Kill switch does not work on hardware
     - Thinking this may be a soldering issue since the board is very burnt
     - Workaround: Take out a stretch sensor and do it in software instead
@@ -498,3 +581,45 @@
   * soldered a capacitor between 3v3 and gnd near esp32 to prevent brownout issue that we have been having as well
 
 
+**Date:** 4/25/2026
+
+**Meeting Objectives:**
+1. Attached PCBs to vest and physical calibration
+
+**Record:**
+* Finally sewed PCBs onto vest and attached everything as follows:
+<img width="626" height="331" alt="image" src="https://github.com/user-attachments/assets/4f5f6cc0-a3d9-4b2a-87f9-0bd9e790cead" />
+* Had to change some placements from og design doc setup due to physical vest sizing and size of spools
+* Ribbon kept falling off of spools so we ended up attaching a cardboard piece to the end of them to keep the ribbon in place while servos reel in
+* Need to do some fine-tuning with the code due to issues with outliers essentially stopping the slouch detection completely- will do next meeting
+
+**Date:** 4/26/2026
+
+**Meeting Objectives:**
+1. Data smoothing
+2. final tweaks to algo to meet high level reqs
+3. Finalize app
+
+**Record:**
+* App packet includes:
+    - S1 sensor reading
+    - Posture status (aka GOOD, SLOUCHING, ACTUATING)
+    - Mode (ACTIVE/BRACE/KILLED)
+    - moveAmount (steps +500 or -500 button)
+    - slouchThreshold (adjustable)
+    - motorActuated (whether vest is tightened for brace mode/kill purposes)
+* Tweaked the motor speed a bit so that the motors actually take 10s to reel in as per the high level requirement
+    - verified w a stopwatch
+* Decided on smoothing algo which takes
+    - 15% of newest sensor reading
+    - 85% of previous reading
+* Makes the readings we get much more stable and now we have a much better slouch state identification:
+  <img width="1040" height="161" alt="image" src="https://github.com/user-attachments/assets/0763ecde-4a45-47cd-9b5f-6fc4334e769d" />
+* Final Control Flowchart:
+  <img width="950" height="802" alt="image" src="https://github.com/user-attachments/assets/a512d955-93a6-4077-a539-9a759d90bb01" />
+
+* Final BLE Flowchart
+<img width="876" height="1173" alt="image" src="https://github.com/user-attachments/assets/4d373f17-0ead-4f24-8675-3357e921db60" />
+
+
+ 
